@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Auth View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="AuthViewController" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="IEU-d7-AXH">
+                                <rect key="frame" x="35" y="274" width="305" height="119"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="6Hk-DD-oN0" userLabel="textfieldsStackView">
+                                        <rect key="frame" x="0.0" y="0.0" width="305" height="69"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email или телефон" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oKC-Ud-hjx">
+                                                <rect key="frame" x="0.0" y="0.0" width="305" height="34"/>
+                                                <color key="backgroundColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <textInputTraits key="textInputTraits" textContentType="nickname"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Пароль" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kZi-36-DTj">
+                                                <rect key="frame" x="0.0" y="35" width="305" height="34"/>
+                                                <color key="backgroundColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="K5g-G1-zPY" userLabel="buttonsStackView">
+                                        <rect key="frame" x="22" y="85" width="261" height="34"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1pS-af-zc3">
+                                                <rect key="frame" x="0.0" y="0.0" width="120" height="34"/>
+                                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="Fch-Dy-2Co"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <state key="normal" title="Войти">
+                                                    <color key="titleColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="46E-F6-T0G">
+                                                <rect key="frame" x="141" y="0.0" width="120" height="34"/>
+                                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <state key="normal" title="Регистрация">
+                                                    <color key="titleColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="1pS-af-zc3" firstAttribute="width" secondItem="46E-F6-T0G" secondAttribute="width" id="q24-yo-Ldl"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="6Hk-DD-oN0" secondAttribute="trailing" id="2Ly-8G-nER"/>
+                                    <constraint firstItem="6Hk-DD-oN0" firstAttribute="leading" secondItem="IEU-d7-AXH" secondAttribute="leading" id="Sc7-SL-Nsb"/>
+                                </constraints>
+                            </stackView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="ay0-tg-90l">
+                                <rect key="frame" x="123.5" y="106" width="128" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="5Tz-dU-owQ"/>
+                                    <constraint firstAttribute="height" constant="50" id="946-cb-2P9"/>
+                                    <constraint firstAttribute="width" constant="80" id="LU7-ph-Ezm"/>
+                                    <constraint firstAttribute="width" constant="50" id="x1K-yz-W4a"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="5Tz-dU-owQ"/>
+                                        <exclude reference="946-cb-2P9"/>
+                                        <exclude reference="LU7-ph-Ezm"/>
+                                        <exclude reference="x1K-yz-W4a"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="946-cb-2P9"/>
+                                        <include reference="x1K-yz-W4a"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact-widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="5Tz-dU-owQ"/>
+                                        <include reference="LU7-ph-Ezm"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="ay0-tg-90l" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="6SB-2j-ydP"/>
+                            <constraint firstItem="ay0-tg-90l" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="58.333333333333343" id="E1i-u3-7Aw"/>
+                            <constraint firstItem="IEU-d7-AXH" firstAttribute="top" secondItem="ay0-tg-90l" secondAttribute="bottom" constant="40" id="GFp-Om-lGd"/>
+                            <constraint firstItem="ay0-tg-90l" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="J9Q-L9-uUC"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ay0-tg-90l" secondAttribute="trailing" constant="30" id="RIw-yM-LPI"/>
+                            <constraint firstItem="IEU-d7-AXH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="35" id="SBL-YC-Fsu"/>
+                            <constraint firstItem="IEU-d7-AXH" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="dXF-Zr-29m"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="IEU-d7-AXH" secondAttribute="trailing" constant="35" id="nWW-Co-zOG"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ay0-tg-90l" secondAttribute="trailing" constant="30" id="pp7-6h-4Ay"/>
+                            <constraint firstItem="ay0-tg-90l" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="58.333333333333343" id="rud-g6-PYZ"/>
+                            <constraint firstItem="ay0-tg-90l" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="tDb-IX-hM2"/>
+                            <constraint firstItem="IEU-d7-AXH" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="wJX-4K-YEu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="RIw-yM-LPI"/>
+                                <exclude reference="pp7-6h-4Ay"/>
+                                <exclude reference="GFp-Om-lGd"/>
+                                <exclude reference="6SB-2j-ydP"/>
+                                <exclude reference="E1i-u3-7Aw"/>
+                                <exclude reference="J9Q-L9-uUC"/>
+                                <exclude reference="rud-g6-PYZ"/>
+                                <exclude reference="tDb-IX-hM2"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="RIw-yM-LPI"/>
+                                <include reference="6SB-2j-ydP"/>
+                                <exclude reference="E1i-u3-7Aw"/>
+                                <exclude reference="rud-g6-PYZ"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact-widthClass=regular">
+                            <mask key="constraints">
+                                <include reference="pp7-6h-4Ay"/>
+                                <include reference="tDb-IX-hM2"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="GFp-Om-lGd"/>
+                                <include reference="J9Q-L9-uUC"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="loginButton" destination="1pS-af-zc3" id="ZDv-dC-ID7"/>
+                        <outlet property="loginTextField" destination="oKC-Ud-hjx" id="UxX-cd-YgE"/>
+                        <outlet property="passwordTextField" destination="kZi-36-DTj" id="waj-9t-MQA"/>
+                        <outlet property="registrationButton" destination="46E-F6-T0G" id="lqG-3Z-Dii"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="136.69950738916256" y="125.59999999999999"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="logo" width="128" height="128"/>
+    </resources>
+</document>
