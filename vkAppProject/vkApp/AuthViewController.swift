@@ -15,9 +15,7 @@ class AuthViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var registrationButton: UIButton!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    func styleBuilding() {
         loginTextField.attributedPlaceholder = NSAttributedString(string: "Email или телефон", attributes: [NSAttributedString.Key.foregroundColor: UIColor(displayP3Red: 171, green: 174, blue: 179, alpha: 1)])
         
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "Пароль", attributes: [NSAttributedString.Key.foregroundColor: UIColor(displayP3Red: 171, green: 174, blue: 179, alpha: 1)])
@@ -27,6 +25,12 @@ class AuthViewController: UIViewController {
         
         loginButton.backgroundColor = UIColor(displayP3Red: 226, green: 227, blue: 231, alpha: 1)
         registrationButton.backgroundColor = UIColor(displayP3Red: 226, green: 227, blue: 231, alpha: 1)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        styleBuilding()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
