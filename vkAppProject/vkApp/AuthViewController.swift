@@ -37,6 +37,19 @@ class AuthViewController: UIViewController {
         self.view.endEditing(true)
     }
 
-
+    @IBAction func loginButtonTapped(_ sender: Any) {
+        if loginTextField.text == "admin" && passwordTextField.text == "admin" {
+            performSegue(withIdentifier: "loginSegue", sender: nil)
+        } else {
+            showLoginError()
+        }
+    }
+    
+    func showLoginError() {
+        let alert = UIAlertController(title: "Ошибка", message: "Введены неверные данные пользователя", preferredStyle: .alert)
+        alert.addAction(.init(title: "ОК", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
 }
 
