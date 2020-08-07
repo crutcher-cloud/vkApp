@@ -41,15 +41,8 @@ class AuthViewController: UIViewController {
         if loginTextField.text == "admin" && passwordTextField.text == "admin" {
             performSegue(withIdentifier: "loginSegue", sender: nil)
         } else {
-            showLoginError()
+            showAlert(title: "Ошибка", message: "Введены неверные данные пользователя", buttonText: "ОК")
         }
     }
-    
-    func showLoginError() {
-        let alert = UIAlertController(title: "Ошибка", message: "Введены неверные данные пользователя", preferredStyle: .alert)
-        alert.addAction(.init(title: "ОК", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
-    
 }
 
