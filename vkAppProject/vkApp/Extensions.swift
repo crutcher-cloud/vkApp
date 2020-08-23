@@ -16,3 +16,9 @@ extension UIViewController {
         self.present(alert, animated: true)
     }
 }
+
+extension CGColor {
+    var UIColor: UIKit.UIColor {
+        return UIKit.UIColor(cgColor: self)
+    }
+}

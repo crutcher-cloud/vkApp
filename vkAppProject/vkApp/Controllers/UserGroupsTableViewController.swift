@@ -18,9 +18,11 @@ class UserGroupsTableViewController: UITableViewController {
             guard let groupsController = segue.source as? GroupsTableVC else { return }
             if let indexPath = groupsController.tableView.indexPathForSelectedRow {
                 let newGroup = groupsController.groups[indexPath.row]
-                if !groups.contains(where: {g -> Bool in
-                    g.name == newGroup.name
-                }) {
+                let existenceCheck = groups.contains { (userGroup) -> Bool in
+                    userGroup.name == newGroup.name
+                }
+                
+                if !existenceCheck {
                     groups.append(newGroup)
                     tableView.reloadData()
                 } else {
