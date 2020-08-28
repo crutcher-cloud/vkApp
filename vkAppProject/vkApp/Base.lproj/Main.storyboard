@@ -167,7 +167,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="26" y="123"/>
+            <point key="canvasLocation" x="24.800000000000001" y="122.66009852216749"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="ugL-dF-or7">
@@ -367,16 +367,16 @@
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                                            <real key="value" value="0.29999999999999999"/>
+                                                            <real key="value" value="5.2999999999999998"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                                            <real key="value" value="0.0"/>
+                                                            <real key="value" value="2"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="25"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                                            <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="value" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
                                                             <size key="value" width="2" height="-1"/>
@@ -384,7 +384,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                             </subviews>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="Qga-xZ-0MG"/>
                                                 <constraint firstAttribute="bottom" secondItem="1vN-4R-ZEx" secondAttribute="bottom" id="UVC-GB-aSc"/>
@@ -446,23 +446,66 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XVU-4O-Cjb">
-                                            <rect key="frame" x="0.0" y="0.0" width="183" height="228"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="183" height="248"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="183" id="Un3-hF-zFM"/>
-                                                <constraint firstAttribute="height" constant="228" id="iA0-oq-SuM"/>
+                                                <constraint firstAttribute="height" constant="248" id="iA0-oq-SuM"/>
                                             </constraints>
                                         </imageView>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9eM-iC-f9P" customClass="likeControl" customModule="vkApp" customModuleProvider="target">
-                                            <rect key="frame" x="163" y="228" width="20" height="20"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rAo-vL-lzR" customClass="CustomLikeControl" customModule="vkApp" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="218" width="183" height="30"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vu-Ci-rLw">
+                                                    <rect key="frame" x="149" y="2" width="26" height="26"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="26" id="udZ-ox-1pl"/>
+                                                    </constraints>
+                                                    <state key="normal" image="unselectedHeart"/>
+                                                    <connections>
+                                                        <action selector="likeButtonTap:" destination="rAo-vL-lzR" eventType="touchUpInside" id="lzI-Gx-1IN"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YcG-nE-11K">
+                                                    <rect key="frame" x="94" y="2" width="50" height="26"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="8kL-Jc-pLZ"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="YcG-nE-11K" secondAttribute="bottom" constant="2" id="3QS-pt-mue"/>
+                                                <constraint firstItem="YcG-nE-11K" firstAttribute="leading" relation="lessThanOrEqual" secondItem="rAo-vL-lzR" secondAttribute="leading" constant="94" id="4KX-80-gYj"/>
+                                                <constraint firstItem="1vu-Ci-rLw" firstAttribute="top" secondItem="rAo-vL-lzR" secondAttribute="top" constant="2" id="4ja-Rz-Kje"/>
+                                                <constraint firstAttribute="trailing" secondItem="1vu-Ci-rLw" secondAttribute="trailing" constant="8" id="5cf-9l-H9B"/>
+                                                <constraint firstAttribute="bottom" secondItem="1vu-Ci-rLw" secondAttribute="bottom" constant="2" id="Igm-Eu-WtM"/>
+                                                <constraint firstItem="YcG-nE-11K" firstAttribute="top" secondItem="rAo-vL-lzR" secondAttribute="top" constant="2" id="J4p-jM-cmq"/>
+                                                <constraint firstItem="1vu-Ci-rLw" firstAttribute="leading" secondItem="YcG-nE-11K" secondAttribute="trailing" constant="5" id="Lq9-zy-7bd"/>
+                                                <constraint firstAttribute="width" constant="183" id="Pzw-bK-p4n"/>
+                                                <constraint firstAttribute="height" constant="30" id="o0R-Qc-1pW"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="opacity">
+                                                    <real key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <outlet property="likeButton" destination="1vu-Ci-rLw" id="N4B-fj-dJy"/>
+                                                <outlet property="likeCountLabel" destination="YcG-nE-11K" id="AJJ-w5-mxH"/>
+                                            </connections>
                                         </view>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="XVU-4O-Cjb" firstAttribute="leading" secondItem="RwP-i7-01n" secondAttribute="leading" id="08z-zv-HR5"/>
                                         <constraint firstAttribute="trailing" secondItem="XVU-4O-Cjb" secondAttribute="trailing" id="2ZY-yl-uXg"/>
+                                        <constraint firstItem="rAo-vL-lzR" firstAttribute="leading" secondItem="RwP-i7-01n" secondAttribute="leading" id="6Do-w7-dqc"/>
                                         <constraint firstItem="XVU-4O-Cjb" firstAttribute="top" secondItem="RwP-i7-01n" secondAttribute="top" id="FJ5-90-ecR"/>
-                                        <constraint firstAttribute="bottom" secondItem="XVU-4O-Cjb" secondAttribute="bottom" constant="20" id="hr2-j8-quz"/>
+                                        <constraint firstAttribute="trailing" secondItem="rAo-vL-lzR" secondAttribute="trailing" id="Mh2-QL-Stj"/>
+                                        <constraint firstAttribute="bottom" secondItem="rAo-vL-lzR" secondAttribute="bottom" id="OId-N9-bxb"/>
+                                        <constraint firstAttribute="bottom" secondItem="XVU-4O-Cjb" secondAttribute="bottom" id="y3z-a0-Jyy"/>
                                     </constraints>
                                 </collectionViewCellContentView>
                                 <size key="customSize" width="183" height="248"/>
@@ -526,5 +569,6 @@
         <image name="groups" width="32" height="32"/>
         <image name="logo" width="170.66667175292969" height="170.66667175292969"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="unselectedHeart" width="64" height="64"/>
     </resources>
 </document>

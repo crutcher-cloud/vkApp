@@ -44,5 +44,7 @@ class AuthViewController: UIViewController {
             showAlert(title: "Ошибка", message: "Введены неверные данные пользователя", buttonText: "ОК")
         }
     }
+    
+    
 }
 

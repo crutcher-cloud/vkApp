@@ -16,7 +16,7 @@ import UIKit
     }
     
     @IBInspectable var shadowOpacity: Float {
-        set { layer.shadowOpacity = newValue }
+        set { layer.shadowOpacity = newValue / 10 }
         get { layer.shadowOpacity }
     }
     
@@ -26,7 +26,7 @@ import UIKit
     }
     
     @IBInspectable var shadowOffset: CGSize {
-           set { layer.shadowOffset = newValue  }
-           get { return layer.shadowOffset }
-       }
+        set { layer.shadowOffset = newValue  }
+        get { return layer.shadowOffset }
+    }
 }
