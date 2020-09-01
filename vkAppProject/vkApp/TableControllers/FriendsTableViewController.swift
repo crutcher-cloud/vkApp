@@ -8,100 +8,154 @@
 
 import UIKit
 
-class FriendsTableViewController: UITableViewController {
+class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
     
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    var friendsDictionary: [String: [User]] = [:]
+    var friendsSectionTitles = [String]()
     var friends = [
         User(image: [UIImage(named: "IIvanov") ?? UIImage(named: "logo")!, UIImage(named: "IIvanov1") ?? UIImage(named: "logo")!], name: "Иванов Иван"),
-        User(image: [UIImage(named: "YSergeeva") ?? UIImage(named: "logo")!, UIImage(named: "YSergeeva1") ?? UIImage(named: "logo")!], name: "Сергеева Юлия")
+        User(image: [UIImage(named: "YSergeeva") ?? UIImage(named: "logo")!, UIImage(named: "YSergeeva1") ?? UIImage(named: "logo")!], name: "Сергеева Юлия"),
+        User(image: [UIImage(named: "AVasilyev") ?? UIImage(named: "logo")!], name: "Васильев Антон"),
+        User(image: [UIImage(named: "GVinogradov") ?? UIImage(named: "logo")!], name: "Виноградов Геннадий"),
+        User(image: [UIImage(named: "NSolovyev") ?? UIImage(named: "logo")!], name: "Соловьёв Николай"),
+        User(image: [UIImage(named: "LSavin") ?? UIImage(named: "logo")!], name: "Савин Леонид"),
+        User(image: [UIImage(named: "ABelozerov") ?? UIImage(named: "logo")!], name: "Белозёров Афанасий"),
+        User(image: [UIImage(named: "AIgnatyev") ?? UIImage(named: "logo")!], name: "Игнатьев Архип"),
+        User(image: [UIImage(named: "ASidorov") ?? UIImage(named: "logo")!], name: "Сидоров Адольф"),
+        User(image: [UIImage(named: "AGordeeva") ?? UIImage(named: "logo")!], name: "Гордеева Аэлита"),
+        User(image: [UIImage(named: "DArkhipova") ?? UIImage(named: "logo")!], name: "Архипова Джульетта"),
+        User(image: [UIImage(named: "MNikonova") ?? UIImage(named: "logo")!], name: "Никонова Мальта"),
+        User(image: [UIImage(named: "GOvchinnikova") ?? UIImage(named: "logo")!], name: "Овчинникова Гертруда"),
+        User(image: [UIImage(named: "SGulyaeva") ?? UIImage(named: "logo")!], name: "Гуляева Симона")
     ]
     
+    var filteredFriendsDictionary: [String: [User]] = [:] //Словарь друзей, использующийся для поиска
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        tableView.dataSource = self
+        searchBar.delegate = self
         
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        //Заполнение словаря с друзьями в формате "первая буква" : [друзья]
+        for friend in friends {
+            let friendKey = String(friend.name.first ?? "?")
+            if var friendValues = friendsDictionary[friendKey] {
+                friendValues.append(friend)
+                friendsDictionary[friendKey] = friendValues
+            } else {
+                friendsDictionary[friendKey] = [friend]
+            }
+        }
+        
+        filteredFriendsDictionary = friendsDictionary
+        
+        friendsSectionTitles = [String] (friendsDictionary.keys)
+        friendsSectionTitles = friendsSectionTitles.sorted(by: {$0 < $1})
     }
     
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return friendsSectionTitles.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return friends.count
+        let friendKey = friendsSectionTitles[section]
+        
+        if let friendValue = filteredFriendsDictionary[friendKey] {
+            return friendValue.count
+        }
+        
+        return 0
     }
-    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as! FriendTableViewCell
         
         // Configure the cell...
-        cell.friendNameLabel.text = friends[indexPath.row].name
-        cell.friendImage.image = friends[indexPath.row].image[0]
+        let friendKey = friendsSectionTitles[indexPath.section]
+        if let friendValue = filteredFriendsDictionary[friendKey] {
+            cell.friendNameLabel.text = friendValue[indexPath.row].name
+            cell.friendImage.image = friendValue[indexPath.row].image[0]
+        }
         
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.backgroundColor = tableView.backgroundColor
+        view.layer.opacity = 0.5
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return friendsSectionTitles[section]
+    }
+    
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return friendsSectionTitles
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        friendsSectionTitles = []
+        filteredFriendsDictionary = [:]
+        var filteredFriends = [User]() //Массив результата поиска
+        
+        let friendKey = String(searchText.first ?? "?")
+        
+        if friendKey != "?" {
+            friendsSectionTitles.append(friendKey)
+        } else {
+            friendsSectionTitles = [String] (friendsDictionary.keys)
+            friendsSectionTitles = friendsSectionTitles.sorted(by: {$0 < $1})
+            
+            filteredFriendsDictionary = friendsDictionary
+        }
+        
+        //Заполнение результата поиска.
+        for friend in friends {
+            if friend.name.prefix(searchText.count).contains(searchText) {
+                filteredFriends.append(friend)
+                filteredFriendsDictionary[friendKey] = filteredFriends
+            }
+        }
+        
+        tableView.reloadData()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.searchBar.showsCancelButton = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        filteredFriendsDictionary = friendsDictionary
+        
+        friendsSectionTitles = [String] (friendsDictionary.keys)
+        friendsSectionTitles = friendsSectionTitles.sorted(by: {$0 < $1})
+        
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        
+        tableView.reloadData()
+    }
+    
+    // MARK: - Transfer image
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showImage" {
             guard let destination = segue.destination as? FriendImagesCollectionVC else { return }
-            if let imageIndex = self.tableView.indexPathForSelectedRow {
-                destination.friendImage = friends[imageIndex.row].image
-            }
+            let selectedCellIndex = self.tableView.indexPathForSelectedRow!.row
+            let selectedSection = self.tableView.indexPathForSelectedRow!.section
             
+            let friendKey = friendsSectionTitles[selectedSection]
+            if let friendValue = filteredFriendsDictionary[friendKey] {
+                destination.friendImage = friendValue[selectedCellIndex].image
+            }
         }
     }
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }    
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
