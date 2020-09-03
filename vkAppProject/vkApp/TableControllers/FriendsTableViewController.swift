@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
+class FriendsTableViewController: UITableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -41,7 +41,7 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
         
         //Заполнение словаря с друзьями в формате "первая буква" : [друзья]
         for friend in friends {
-            let friendKey = String(friend.name.first ?? "?")
+            let friendKey = String(friend.name.prefix(1))
             if var friendValues = friendsDictionary[friendKey] {
                 friendValues.append(friend)
                 friendsDictionary[friendKey] = friendValues
@@ -100,49 +100,6 @@ class FriendsTableViewController: UITableViewController, UISearchBarDelegate {
         return friendsSectionTitles
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        friendsSectionTitles = []
-        filteredFriendsDictionary = [:]
-        var filteredFriends = [User]() //Массив результата поиска
-        
-        let friendKey = String(searchText.first ?? "?")
-        
-        if friendKey != "?" {
-            friendsSectionTitles.append(friendKey)
-        } else {
-            friendsSectionTitles = [String] (friendsDictionary.keys)
-            friendsSectionTitles = friendsSectionTitles.sorted(by: {$0 < $1})
-            
-            filteredFriendsDictionary = friendsDictionary
-        }
-        
-        //Заполнение результата поиска.
-        for friend in friends {
-            if friend.name.prefix(searchText.count).contains(searchText) {
-                filteredFriends.append(friend)
-                filteredFriendsDictionary[friendKey] = filteredFriends
-            }
-        }
-        
-        tableView.reloadData()
-    }
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        self.searchBar.showsCancelButton = true
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        filteredFriendsDictionary = friendsDictionary
-        
-        friendsSectionTitles = [String] (friendsDictionary.keys)
-        friendsSectionTitles = friendsSectionTitles.sorted(by: {$0 < $1})
-        
-        searchBar.showsCancelButton = false
-        searchBar.text = ""
-        searchBar.resignFirstResponder()
-        
-        tableView.reloadData()
-    }
     
     // MARK: - Transfer image
     

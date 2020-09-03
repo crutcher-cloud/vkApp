@@ -32,15 +32,19 @@ import UIKit
     @IBAction func likeButtonTap(_ sender: UIButton) {
         if buttonStatus {
             likeCount -= 1
-            likeCountLabel.text = "\(likeCount)"
+            //likeCountLabel.text = "\(likeCount)"
             sender.setImage(UIImage(named: "unselectedHeart"), for: .normal)
             likeCountLabel.textColor = .black
         } else {
             likeCount += 1
-            likeCountLabel.text = "\(likeCount)"
+            //likeCountLabel.text = "\(likeCount)"
             sender.setImage(UIImage(named: "selectedHeart"), for: .normal)
             likeCountLabel.textColor = .red
         }
+        
+        UIView.transition(with: likeCountLabel, duration: 0.25, options: .transitionFlipFromBottom, animations: {
+            self.likeCountLabel.text = "\(self.likeCount)"
+        }, completion: nil)
         
         buttonStatus = !buttonStatus
     }
