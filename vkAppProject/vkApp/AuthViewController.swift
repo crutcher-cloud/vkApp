@@ -9,6 +9,8 @@
 import UIKit
 
 class AuthViewController: UIViewController {
+    
+    let transitionManager = TransitionManager()
 
     @IBOutlet weak var loginTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -45,6 +47,10 @@ class AuthViewController: UIViewController {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         let toViewController = segue.destination as UIViewController
+               toViewController.transitioningDelegate = self.transitionManager
+    }
     
 }
 

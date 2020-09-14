@@ -10,6 +10,8 @@ import UIKit
 
 class ImageSliderViewController: UIViewController {
     
+    let transitionManager = TransitionManager()
+    
     var arrayOfImages = [UIImage]()
     var imageIndex = 0
     @IBOutlet weak var friendImage: UIImageView!
@@ -61,4 +63,8 @@ class ImageSliderViewController: UIViewController {
         }
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         let toViewController = segue.destination as UIViewController
+               toViewController.transitioningDelegate = self.transitionManager
+    }
 }

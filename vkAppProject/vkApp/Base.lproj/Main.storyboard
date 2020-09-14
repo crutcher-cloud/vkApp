@@ -645,7 +645,7 @@
         <!--Друзья-->
         <scene sceneID="hkp-PI-hFK">
             <objects>
-                <tableViewController id="Qhj-A3-lzD" customClass="FriendsTableViewController" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController modalPresentationStyle="fullScreen" id="Qhj-A3-lzD" customClass="FriendsTableViewController" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Wpl-GX-uh8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -765,7 +765,7 @@
         <!--Image Slider View Controller-->
         <scene sceneID="KMR-tJ-N9l">
             <objects>
-                <viewController id="PR0-Zs-7fY" customClass="ImageSliderViewController" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="PR0-Zs-7fY" customClass="ImageSliderViewController" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OPk-mf-chu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -899,7 +899,7 @@
         <!--Друзья-->
         <scene sceneID="uda-kx-0o4">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JUK-Iv-ix6" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="JUK-Iv-ix6" customClass="CustomNavigationController" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Друзья" image="friends" selectedImage="friends" id="fVh-sJ-zgV"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="di8-nT-QP9">

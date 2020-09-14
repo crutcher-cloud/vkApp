@@ -10,6 +10,8 @@ import UIKit
 
 class FriendsTableViewController: UITableViewController {
     
+    let transitionManager = TransitionManager()
+    
     @IBOutlet weak var searchBar: UISearchBar!
     
     var friendsDictionary: [String: [User]] = [:]
@@ -104,6 +106,7 @@ class FriendsTableViewController: UITableViewController {
     // MARK: - Transfer image
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "showImage" {
             guard let destination = segue.destination as? ImageSliderViewController else { return }
             let selectedCellIndex = self.tableView.indexPathForSelectedRow!.row
@@ -113,6 +116,8 @@ class FriendsTableViewController: UITableViewController {
             if let friendValue = filteredFriendsDictionary[friendKey] {
                 destination.arrayOfImages = friendValue[selectedCellIndex].image
             }
+            let toViewController = segue.destination as! ImageSliderViewController
+            toViewController.transitioningDelegate = self.transitionManager
         }
     }
 }
