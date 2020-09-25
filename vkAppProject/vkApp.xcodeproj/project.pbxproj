@@ -29,6 +29,7 @@
 		DAE80DDE24DC03BF001DFFFB /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE80DDD24DC03BF001DFFFB /* GroupTableViewCell.swift */; };
 		DAE80DE024DC08A7001DFFFB /* FriendImagesCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE80DDF24DC08A7001DFFFB /* FriendImagesCollectionVC.swift */; };
 		DAE80DE324DC0926001DFFFB /* FriendImagesCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE80DE224DC0926001DFFFB /* FriendImagesCollectionCell.swift */; };
+		DAFAB3CB251D9C9000973042 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFAB3CA251D9C9000973042 /* Session.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		DAE80DDD24DC03BF001DFFFB /* GroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
 		DAE80DDF24DC08A7001DFFFB /* FriendImagesCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FriendImagesCollectionVC.swift; path = vkApp/TableControllers/FriendImagesCollectionVC.swift; sourceTree = SOURCE_ROOT; };
 		DAE80DE224DC0926001DFFFB /* FriendImagesCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendImagesCollectionCell.swift; sourceTree = "<group>"; };
+		DAFAB3CA251D9C9000973042 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 		DAE087A924D30E4C00734151 /* vkApp */ = {
 			isa = PBXGroup;
 			children = (
+				DAFAB3CC251D9C9500973042 /* Network */,
 				DA58402B24E9A7AF004E229C /* View's */,
 				DAE80DE124DC08CC001DFFFB /* TableControllers */,
 				DA9634F424DB10D8001B8767 /* Model */,
@@ -145,6 +148,14 @@
 				DAE80DDF24DC08A7001DFFFB /* FriendImagesCollectionVC.swift */,
 			);
 			path = TableControllers;
+			sourceTree = "<group>";
+		};
+		DAFAB3CC251D9C9500973042 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				DAFAB3CA251D9C9000973042 /* Session.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,6 +229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAFAB3CB251D9C9000973042 /* Session.swift in Sources */,
 				DAE80DE024DC08A7001DFFFB /* FriendImagesCollectionVC.swift in Sources */,
 				DAE80DE324DC0926001DFFFB /* FriendImagesCollectionCell.swift in Sources */,
 				DAE80DDE24DC03BF001DFFFB /* GroupTableViewCell.swift in Sources */,
