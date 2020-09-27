@@ -12,11 +12,14 @@ class ImageSliderViewController: UIViewController {
     
     var arrayOfImages = [UIImage]()
     var imageIndex = 0
+    var friend_id = 21355630
     @IBOutlet weak var friendImage: UIImageView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getPhotos()
 
         friendImage.image = arrayOfImages[imageIndex]
         
@@ -59,6 +62,27 @@ class ImageSliderViewController: UIViewController {
         default:
             print("Unknown swipe")
         }
+    }
+    
+    func getPhotos() {
+        let session = Session.instance
+        guard let url = URL(string: "https://api.vk.com/method/photos.get?access_token=\(session.token)&owner_id=\(friend_id)&album_id=profile&v=5.124") else { return }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let response = response {
+                print(response)
+            }
+            
+            guard let data = data else { return }
+            print(data)
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                print(json)
+            } catch {
+                print(error)
+            }
+        }.resume()
     }
 
 }

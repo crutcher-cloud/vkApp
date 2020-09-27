@@ -36,6 +36,8 @@ class FriendsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getFriends()
+        
         tableView.dataSource = self
         searchBar.delegate = self
         
@@ -54,6 +56,27 @@ class FriendsTableViewController: UITableViewController {
         
         friendsSectionTitles = [String] (friendsDictionary.keys)
         friendsSectionTitles = friendsSectionTitles.sorted(by: {$0 < $1})
+    }
+    
+    func getFriends() {
+        let session = Session.instance
+        guard let url = URL(string: "https://api.vk.com/method/friends.get?access_token=\(session.token)&order=name&fields=city&name_case=nom&v=5.124") else { return }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let response = response {
+                print(response)
+            }
+            
+            guard let data = data else { return }
+            print(data)
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                print(json)
+            } catch {
+                print(error)
+            }
+        }.resume()
     }
     
     // MARK: - Table view data source
