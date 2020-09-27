@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -794,108 +793,6 @@
             </objects>
             <point key="canvasLocation" x="3373.5999999999999" y="-180.29556650246306"/>
         </scene>
-        <!--Friend Images CollectionVC-->
-        <scene sceneID="0rh-TW-LjI">
-            <objects>
-                <collectionViewController id="X4i-io-u7N" customClass="FriendImagesCollectionVC" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Vwq-0e-vav">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="K4V-Qy-kI6">
-                            <size key="itemSize" width="299" height="419"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FriendImageCell" id="xkZ-TH-R9I" customClass="FriendImagesCollectionCell" customModule="vkApp" customModuleProvider="target">
-                                <rect key="frame" x="38" y="0.0" width="299" height="419"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="RwP-i7-01n">
-                                    <rect key="frame" x="0.0" y="0.0" width="299" height="419"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XVU-4O-Cjb">
-                                            <rect key="frame" x="0.0" y="0.0" width="299" height="419"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="183" id="Un3-hF-zFM"/>
-                                                <constraint firstAttribute="height" constant="248" id="iA0-oq-SuM"/>
-                                            </constraints>
-                                        </imageView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rAo-vL-lzR" customClass="CustomLikeControl" customModule="vkApp" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="389" width="299" height="30"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vu-Ci-rLw">
-                                                    <rect key="frame" x="265" y="2" width="26" height="26"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="26" id="udZ-ox-1pl"/>
-                                                    </constraints>
-                                                    <state key="normal" image="unselectedHeart"/>
-                                                    <connections>
-                                                        <action selector="likeButtonTap:" destination="rAo-vL-lzR" eventType="touchUpInside" id="lzI-Gx-1IN"/>
-                                                    </connections>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YcG-nE-11K">
-                                                    <rect key="frame" x="94" y="2" width="166" height="26"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="8kL-Jc-pLZ"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="YcG-nE-11K" secondAttribute="bottom" constant="2" id="3QS-pt-mue"/>
-                                                <constraint firstItem="YcG-nE-11K" firstAttribute="leading" relation="lessThanOrEqual" secondItem="rAo-vL-lzR" secondAttribute="leading" constant="94" id="4KX-80-gYj"/>
-                                                <constraint firstItem="1vu-Ci-rLw" firstAttribute="top" secondItem="rAo-vL-lzR" secondAttribute="top" constant="2" id="4ja-Rz-Kje"/>
-                                                <constraint firstAttribute="trailing" secondItem="1vu-Ci-rLw" secondAttribute="trailing" constant="8" id="5cf-9l-H9B"/>
-                                                <constraint firstAttribute="bottom" secondItem="1vu-Ci-rLw" secondAttribute="bottom" constant="2" id="Igm-Eu-WtM"/>
-                                                <constraint firstItem="YcG-nE-11K" firstAttribute="top" secondItem="rAo-vL-lzR" secondAttribute="top" constant="2" id="J4p-jM-cmq"/>
-                                                <constraint firstItem="1vu-Ci-rLw" firstAttribute="leading" secondItem="YcG-nE-11K" secondAttribute="trailing" constant="5" id="Lq9-zy-7bd"/>
-                                                <constraint firstAttribute="width" constant="183" id="Pzw-bK-p4n"/>
-                                                <constraint firstAttribute="height" constant="30" id="o0R-Qc-1pW"/>
-                                            </constraints>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="opacity">
-                                                    <real key="value" value="8"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <outlet property="likeButton" destination="1vu-Ci-rLw" id="N4B-fj-dJy"/>
-                                                <outlet property="likeCountLabel" destination="YcG-nE-11K" id="AJJ-w5-mxH"/>
-                                            </connections>
-                                        </view>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="XVU-4O-Cjb" firstAttribute="leading" secondItem="RwP-i7-01n" secondAttribute="leading" id="08z-zv-HR5"/>
-                                        <constraint firstAttribute="trailing" secondItem="XVU-4O-Cjb" secondAttribute="trailing" id="2ZY-yl-uXg"/>
-                                        <constraint firstItem="rAo-vL-lzR" firstAttribute="leading" secondItem="RwP-i7-01n" secondAttribute="leading" id="6Do-w7-dqc"/>
-                                        <constraint firstItem="XVU-4O-Cjb" firstAttribute="top" secondItem="RwP-i7-01n" secondAttribute="top" id="FJ5-90-ecR"/>
-                                        <constraint firstAttribute="trailing" secondItem="rAo-vL-lzR" secondAttribute="trailing" id="Mh2-QL-Stj"/>
-                                        <constraint firstAttribute="bottom" secondItem="rAo-vL-lzR" secondAttribute="bottom" id="OId-N9-bxb"/>
-                                        <constraint firstAttribute="bottom" secondItem="XVU-4O-Cjb" secondAttribute="bottom" id="y3z-a0-Jyy"/>
-                                    </constraints>
-                                </collectionViewCellContentView>
-                                <size key="customSize" width="299" height="419"/>
-                                <connections>
-                                    <outlet property="friendImage" destination="XVU-4O-Cjb" id="jV6-Og-6Vy"/>
-                                </connections>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="X4i-io-u7N" id="hBp-Jo-cj5"/>
-                            <outlet property="delegate" destination="X4i-io-u7N" id="jWG-hV-xBl"/>
-                        </connections>
-                    </collectionView>
-                    <navigationItem key="navigationItem" id="kr9-4K-Jji"/>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yg0-jH-hcS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3374" y="-853"/>
-        </scene>
         <!--Друзья-->
         <scene sceneID="uda-kx-0o4">
             <objects>
@@ -941,6 +838,5 @@
         <image name="logo" width="170.66667175292969" height="170.66667175292969"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="news" width="22" height="24"/>
-        <image name="unselectedHeart" width="64" height="64"/>
     </resources>
 </document>
