@@ -69,15 +69,3 @@ extension FriendsTableViewController: UISearchBarDelegate {
     }
     
 }
-
-@IBDesignable class AnimatedUIView: UIView {
-    @IBInspectable var cornerRadius: CGFloat {
-        set { layer.cornerRadius = newValue }
-        get { layer.cornerRadius }
-    }
-    
-    @IBInspectable var opacity: Float {
-        set { layer.opacity = newValue / 10}
-        get { layer.opacity }
-    }
-}

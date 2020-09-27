@@ -31,6 +31,10 @@ class AuthViewController: UIViewController {
         super.viewDidLoad()
         
         styleBuilding()
+        
+        let session = Session.instance
+        session.token = "94a08da1fecbb6e8b46990538c7b50b2"
+        session.userId = 125673
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
