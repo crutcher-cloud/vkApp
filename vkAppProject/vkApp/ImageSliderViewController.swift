@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import Alamofire
 
 class ImageSliderViewController: UIViewController {
     
-    var arrayOfImages = [UIImage]()
+    var arrayOfImages: [Photo] = []
     var imageIndex = 0
-    var friend_id = 21355630
+    var friend_id = 0
     @IBOutlet weak var friendImage: UIImageView!
     
     
@@ -20,8 +21,13 @@ class ImageSliderViewController: UIViewController {
         super.viewDidLoad()
         
         getPhotos()
-
-        friendImage.image = arrayOfImages[imageIndex]
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5), execute: {
+            let url = URL(string: self.arrayOfImages[self.imageIndex].sizes![4].url!)
+            let data = try? Data(contentsOf: url!)
+            
+            self.friendImage.image = UIImage(data: data!)
+        })
         
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(sender:)))
         let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(sender:)))
@@ -41,7 +47,11 @@ class ImageSliderViewController: UIViewController {
                     self.friendImage.transform = .init(scaleX: 1, y: 1)
                 })
                 UIView.transition(with: self.friendImage, duration: 1, options: .transitionCrossDissolve, animations: {
-                    self.friendImage.image = self.arrayOfImages[self.imageIndex]
+                    let url = URL(string: self.arrayOfImages[self.imageIndex].sizes![4].url!)
+                    let data = try? Data(contentsOf: url!)
+                    
+                    self.friendImage.image = UIImage(data: data!)
+                    //self.friendImage.image = self.arrayOfImages[self.imageIndex]
                 }, completion: nil)
             } else {
                 imageIndex += 1
@@ -53,9 +63,13 @@ class ImageSliderViewController: UIViewController {
                     self.friendImage.transform = .init(scaleX: 0.9, y: 0.9)
                 })
                 UIView.transition(with: self.friendImage, duration: 1, options: .transitionCrossDissolve, animations: {
-                    self.friendImage.image = self.arrayOfImages[self.imageIndex]
+                    let url = URL(string: self.arrayOfImages[self.imageIndex].sizes![4].url!)
+                    let data = try? Data(contentsOf: url!)
+                    
+                    self.friendImage.image = UIImage(data: data!)
+                    //self.friendImage.image = self.arrayOfImages[self.imageIndex]
                 }, completion: nil)
-                
+
             } else {
                 imageIndex -= 1
             }
@@ -65,24 +79,22 @@ class ImageSliderViewController: UIViewController {
     }
     
     func getPhotos() {
-        let session = Session.instance
-        guard let url = URL(string: "https://api.vk.com/method/photos.get?access_token=\(session.token)&owner_id=\(friend_id)&album_id=profile&v=5.124") else { return }
-        
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let response = response {
-                print(response)
-            }
-            
-            guard let data = data else { return }
-            print(data)
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
-                print(json)
-            } catch {
+        let token = session.token
+        let ownerID = friend_id
+        let apiVersion = "5.124"
+
+        AF.request("https://api.vk.com/method/photos.getAll?access_token=\(token)&owner_id=\(ownerID)&v=\(apiVersion)").responseData(completionHandler: { (response) in
+            switch response.result {
+            case .failure(let error):
                 print(error)
+            case .success(let data):
+                do{
+                    let photos = try JSONDecoder().decode(PhotoListResponse.self, from: data)
+                    let photoList = photos.response.items!
+                    self.arrayOfImages.append(contentsOf: photoList)
+                } catch { print(error) }
             }
-        }.resume()
+        })
     }
 
 }

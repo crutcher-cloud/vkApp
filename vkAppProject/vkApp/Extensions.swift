@@ -28,7 +28,7 @@ extension FriendsTableViewController: UISearchBarDelegate {
         friendsSectionTitles = []
         filteredFriendsDictionary = [:]
         var filteredFriends = [User]() //Массив результата поиска
-        
+
         let friendKey = String(searchText.first ?? "?")
         
         if friendKey != "?" {
@@ -36,36 +36,36 @@ extension FriendsTableViewController: UISearchBarDelegate {
         } else {
             friendsSectionTitles = [String] (friendsDictionary.keys)
             friendsSectionTitles = friendsSectionTitles.sorted(by: {$0 < $1})
-            
+
             filteredFriendsDictionary = friendsDictionary
         }
-        
+
         //Заполнение результата поиска.
         for friend in friends {
-            if friend.name.prefix(searchText.count).contains(searchText) {
+            if friend.lastName!.prefix(searchText.count).contains(searchText) {
                 filteredFriends.append(friend)
                 filteredFriendsDictionary[friendKey] = filteredFriends
             }
         }
-        
+
         tableView.reloadData()
     }
-    
+
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         self.searchBar.showsCancelButton = true
     }
-    
+
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         filteredFriendsDictionary = friendsDictionary
-        
+
         friendsSectionTitles = [String] (friendsDictionary.keys)
         friendsSectionTitles = friendsSectionTitles.sorted(by: {$0 < $1})
-        
+
         searchBar.showsCancelButton = false
         searchBar.text = ""
         searchBar.resignFirstResponder()
-        
+
         tableView.reloadData()
     }
-    
+
 }

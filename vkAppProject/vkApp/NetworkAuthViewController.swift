@@ -22,7 +22,7 @@ class NetworkAuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let request = URLRequest(url: URL(string: "https://oauth.vk.com/authorize?client_id=7610474&display=mobile&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=token&v=5.124")!)
+        let request = URLRequest(url: URL(string: "https://oauth.vk.com/authorize?client_id=7610474&display=mobile&redirect_uri=https://oauth.vk.com/blank.html&scope=friends,photos&response_type=token&v=5.124")!)
         webview.load(request)
     }
 }
@@ -47,6 +47,9 @@ extension NetworkAuthViewController: WKNavigationDelegate {
         
         let token = params["access_token"]
         session.token = token!
+        
+        let userID = params["user_id"]
+        session.userId = userID!
         
         decisionHandler(.cancel)
         

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class FriendsTableViewController: UITableViewController {
     
@@ -14,22 +15,8 @@ class FriendsTableViewController: UITableViewController {
     
     var friendsDictionary: [String: [User]] = [:]
     var friendsSectionTitles = [String]()
-    var friends = [
-        User(image: [UIImage(named: "IIvanov") ?? UIImage(named: "logo")!, UIImage(named: "IIvanov1") ?? UIImage(named: "logo")!], name: "Иванов Иван"),
-        User(image: [UIImage(named: "YSergeeva") ?? UIImage(named: "logo")!, UIImage(named: "YSergeeva1") ?? UIImage(named: "logo")!], name: "Сергеева Юлия"),
-        User(image: [UIImage(named: "AVasilyev") ?? UIImage(named: "logo")!], name: "Васильев Антон"),
-        User(image: [UIImage(named: "GVinogradov") ?? UIImage(named: "logo")!], name: "Виноградов Геннадий"),
-        User(image: [UIImage(named: "NSolovyev") ?? UIImage(named: "logo")!], name: "Соловьёв Николай"),
-        User(image: [UIImage(named: "LSavin") ?? UIImage(named: "logo")!], name: "Савин Леонид"),
-        User(image: [UIImage(named: "ABelozerov") ?? UIImage(named: "logo")!], name: "Белозёров Афанасий"),
-        User(image: [UIImage(named: "AIgnatyev") ?? UIImage(named: "logo")!], name: "Игнатьев Архип"),
-        User(image: [UIImage(named: "ASidorov") ?? UIImage(named: "logo")!], name: "Сидоров Адольф"),
-        User(image: [UIImage(named: "AGordeeva") ?? UIImage(named: "logo")!], name: "Гордеева Аэлита"),
-        User(image: [UIImage(named: "DArkhipova") ?? UIImage(named: "logo")!], name: "Архипова Джульетта"),
-        User(image: [UIImage(named: "MNikonova") ?? UIImage(named: "logo")!], name: "Никонова Мальта"),
-        User(image: [UIImage(named: "GOvchinnikova") ?? UIImage(named: "logo")!], name: "Овчинникова Гертруда"),
-        User(image: [UIImage(named: "SGulyaeva") ?? UIImage(named: "logo")!], name: "Гуляева Симона")
-    ]
+
+    var friends: [User] = []
     
     var filteredFriendsDictionary: [String: [User]] = [:] //Словарь друзей, использующийся для поиска
     
@@ -41,42 +28,49 @@ class FriendsTableViewController: UITableViewController {
         tableView.dataSource = self
         searchBar.delegate = self
         
-        //Заполнение словаря с друзьями в формате "первая буква" : [друзья]
-        for friend in friends {
-            let friendKey = String(friend.name.prefix(1))
-            if var friendValues = friendsDictionary[friendKey] {
-                friendValues.append(friend)
-                friendsDictionary[friendKey] = friendValues
-            } else {
-                friendsDictionary[friendKey] = [friend]
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5), execute: {
+            //Заполнение словаря с друзьями в формате "первая буква" : [друзья]
+            for friend in self.friends {
+                let friendKey = String(friend.lastName!.prefix(1))
+                if var friendValues = self.friendsDictionary[friendKey] {
+                    friendValues.append(friend)
+                    self.friendsDictionary[friendKey] = friendValues
+                } else {
+                    self.friendsDictionary[friendKey] = [friend]
+                }
             }
-        }
+            
+            self.filteredFriendsDictionary = self.friendsDictionary
+
+            self.friendsSectionTitles = [String] (self.friendsDictionary.keys)
+            self.friendsSectionTitles = self.friendsSectionTitles.sorted(by: {$0 < $1})
+            
+            self.tableView.reloadData()
+        })
         
-        filteredFriendsDictionary = friendsDictionary
-        
-        friendsSectionTitles = [String] (friendsDictionary.keys)
-        friendsSectionTitles = friendsSectionTitles.sorted(by: {$0 < $1})
     }
     
     func getFriends() {
-        let session = Session.instance
-        guard let url = URL(string: "https://api.vk.com/method/friends.get?access_token=\(session.token)&order=name&fields=city&name_case=nom&v=5.124") else { return }
+        let token = session.token
+        let order = "name"
+        let fields = "photo_50"
+        let nameCase = "nom"
+        let apiVersion = "5.124"
+
+        AF.request("https://api.vk.com/method/friends.get?access_token=\(token)&order=\(order)&fields=\(fields)&name_case=\(nameCase)&v=\(apiVersion)").responseData(completionHandler: { (response) in
+            switch response.result {
+            case .failure(let error):
+                print(error.localizedDescription)
+            case .success(let data):
+                do{
+                    let users = try JSONDecoder().decode(UserListResponse.self, from: data)
+                    let friendsList = users.response.items
+                    self.friends = friendsList!
+                } catch { print(error.localizedDescription) }
+            }
+        })
         
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let response = response {
-                print(response)
-            }
-            
-            guard let data = data else { return }
-            print(data)
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
-                print(json)
-            } catch {
-                print(error)
-            }
-        }.resume()
+        
     }
     
     // MARK: - Table view data source
@@ -89,11 +83,11 @@ class FriendsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         let friendKey = friendsSectionTitles[section]
-        
+
         if let friendValue = filteredFriendsDictionary[friendKey] {
             return friendValue.count
         }
-        
+
         return 0
     }
     
@@ -103,8 +97,11 @@ class FriendsTableViewController: UITableViewController {
         // Configure the cell...
         let friendKey = friendsSectionTitles[indexPath.section]
         if let friendValue = filteredFriendsDictionary[friendKey] {
-            cell.friendNameLabel.text = friendValue[indexPath.row].name
-            cell.friendImage.image = friendValue[indexPath.row].image[0]
+            let url = URL(string: friendValue[indexPath.row].photo!)
+            let data = try? Data(contentsOf: url!)
+            
+            cell.friendNameLabel.text = "\(friendValue[indexPath.row].firstName!) \(friendValue[indexPath.row].lastName!)"
+            cell.friendImage.image = UIImage(data: data!)
         }
         
         return cell
@@ -134,7 +131,7 @@ class FriendsTableViewController: UITableViewController {
             
             let friendKey = friendsSectionTitles[selectedSection]
             if let friendValue = filteredFriendsDictionary[friendKey] {
-                destination.arrayOfImages = friendValue[selectedCellIndex].image
+                destination.friend_id = friendValue[selectedCellIndex].id!
             }
         }
     }

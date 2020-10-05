@@ -7,32 +7,31 @@
 //
 
 import UIKit
+import Alamofire
 
 class UserGroupsTableViewController: UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var groups = [
-        Group(image: (UIImage(named: "GeekBrains") ?? UIImage(named: "logo"))!, name: "GeekBrains")
-    ]
+    var groups: [Group] = []
     
-    var filteredGroups: [Group]!
+    var filteredGroups: [Group] = []
     
     @IBAction func addGroup(segue: UIStoryboardSegue) {
-        if segue.identifier == "addGroup" {
-            guard let groupsController = segue.source as? GroupsTableVC else { return }
-            if let indexPath = groupsController.tableView.indexPathForSelectedRow {
-                let newGroup = groupsController.groups[indexPath.row]
-                if !self.groups.contains(where: {g -> Bool in
-                    g.name == newGroup.name
-                }) {
-                    self.groups.append(newGroup)
-                    filteredGroups = groups
-                    tableView.reloadData()
-                } else {
-                    showAlert(title: "Ошибка", message: "Данная группа уже есть в списке групп пользователя!", buttonText: "Продолжить")
-                }
-            }
-        }
+//        if segue.identifier == "addGroup" {
+//            guard let groupsController = segue.source as? GroupsTableVC else { return }
+//            if let indexPath = groupsController.tableView.indexPathForSelectedRow {
+//                let newGroup = groupsController.groups[indexPath.row]
+//                if !self.groups.contains(where: {g -> Bool in
+//                    g.name == newGroup.name
+//                }) {
+//                    self.groups.append(newGroup)
+//                    filteredGroups = groups
+//                    tableView.reloadData()
+//                } else {
+//                    showAlert(title: "Ошибка", message: "Данная группа уже есть в списке групп пользователя!", buttonText: "Продолжить")
+//                }
+//            }
+//        }
     }
     
     
@@ -43,42 +42,53 @@ class UserGroupsTableViewController: UITableViewController, UISearchBarDelegate 
         
         tableView.dataSource = self
         searchBar.delegate = self
-        filteredGroups = groups
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5), execute: {
+            self.filteredGroups = self.groups
+            
+            self.tableView.reloadData()
+        })
     }
     
     func getGroups() {
-        let session = Session.instance
-        guard let url = URL(string: "https://api.vk.com/method/groups.get?access_token=\(session.token)&extended=1&v=5.124") else { return }
+        let token = session.token
+        let userID = session.userId
+        let extended = 1
+        let apiVersion = "5.124"
         
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let response = response {
-                print(response)
-            }
-            
-            guard let data = data else { return }
-            print(data)
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
-                print(json)
-            } catch {
+        AF.request("https://api.vk.com/method/groups.get?access_token=\(token)&user_id=\(userID)&extended=\(extended)&v=\(apiVersion)").responseData(completionHandler: { (response) in
+            switch response.result {
+            case .failure(let error):
                 print(error)
+            case .success(let data):
+                do{
+                    let groups = try JSONDecoder().decode(GroupListResponse.self, from: data)
+                    let groupsList = groups.response.items
+                    self.groups = groupsList!
+                } catch { print(error) }
             }
-        }.resume()
+        })
+        
     }
     
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return filteredGroups.count
+        if filteredGroups.count != 0 {
+            return filteredGroups.count
+        }
+        return 0
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserGroupCell", for: indexPath) as! GroupTableViewCell
         
-        cell.groupImage.image = filteredGroups[indexPath.row].image
+        let url = URL(string: filteredGroups[indexPath.row].photo!)
+        let data = try? Data(contentsOf: url!)
+        
+        cell.groupImage.image = UIImage(data: data!)
         cell.groupNameLabel.text = filteredGroups[indexPath.row].name
         
         return cell
@@ -92,7 +102,7 @@ class UserGroupsTableViewController: UITableViewController, UISearchBarDelegate 
         // item should NOT be included
         filteredGroups = searchText.isEmpty ? groups : groups.filter({(dataString: Group) -> Bool in
             // If dataItem matches the searchText, return true to include it
-            return dataString.name.range(of: searchText, options: .caseInsensitive) != nil
+            return dataString.name!.range(of: searchText, options: .caseInsensitive) != nil
             //dataString.range(of: searchText, options: .caseInsensitive) != nil
         })
 
