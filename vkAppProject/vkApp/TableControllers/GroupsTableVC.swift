@@ -7,19 +7,25 @@
 //
 
 import UIKit
+import Alamofire
 
 
-class GroupsTableVC: UITableViewController {
+class GroupsTableVC: UITableViewController, UISearchBarDelegate {
     
-    var groups = [
-        Group(image: (UIImage(named: "GeekBrains") ?? UIImage(named: "logo"))!, name: "GeekBrains"),
-        Group(image: (UIImage(named: "2ch") ?? UIImage(named: "logo"))!, name: "2ch"),
-        Group(image: (UIImage(named: "Meduza") ?? UIImage(named: "logo"))!, name: "Медуза")
-    ]
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    var groups: [Group] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getGroups()
+        
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5), execute: {
+            
+            self.tableView.reloadData()
+        })
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -27,20 +33,69 @@ class GroupsTableVC: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
+    func getGroups() {
+        let token = session.token
+        let apiVersion = "5.124"
+        
+        AF.request("https://api.vk.com/method/groups.getCatalog?access_token=\(token)&category_id=0&v=\(apiVersion)").responseData(completionHandler: { (response) in
+            switch response.result {
+            case .failure(let error):
+                print(error)
+            case .success(let data):
+                do{
+                    let groups = try JSONDecoder().decode(GroupListResponse.self, from: data)
+                    let groupsList = groups.response.items
+                    self.groups = groupsList!
+                    
+                    print(groupsList![0])
+                } catch { print(error) }
+            }
+        })
+        
+    }
+    
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return groups.count
+        if groups.count != 0 {
+            return groups.count
+        }
+        
+        return 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as! GroupTableViewCell
         
         // Configure the cell...
-        cell.groupImage.image = groups[indexPath.row].image
+        let url = URL(string: groups[indexPath.row].photo!)
+        let data = try? Data(contentsOf: url!)
+        
+        cell.groupImage.image = UIImage(data: data!)
         cell.groupNameLabel.text = groups[indexPath.row].name
         
         return cell
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        let session = Session.instance
+//        guard let url = URL(string: "https://api.vk.com/method/groups.search?access_token=\(session.token)&q=\(searchText)&v=5.124") else { return }
+//
+//        URLSession.shared.dataTask(with: url) { (data, response, error) in
+//            if let response = response {
+//                print(response)
+//            }
+//
+//            guard let data = data else { return }
+//            print(data)
+//
+//            do {
+//                let json = try JSONSerialization.jsonObject(with: data, options: [])
+//                print(json)
+//            } catch {
+//                print(error)
+//            }
+//        }.resume()
     }
 }
