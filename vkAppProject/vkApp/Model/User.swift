@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
 struct UserListResponse: Decodable {
     let response: UserAPIResponse
@@ -18,12 +19,12 @@ struct UserAPIResponse: Decodable {
     let items: [User]?
 }
 
-struct User: Decodable {
-    var id: Int?
-    var firstName: String?
-    var lastName: String?
-    var photo: String?
-    var isOnline: Int?
+class User: Object, Decodable {
+    dynamic var id: Int? = 0
+    dynamic var firstName: String? = ""
+    dynamic var lastName: String? = ""
+    dynamic var photo: String? = ""
+    dynamic var isOnline: Int? = 0
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -31,15 +32,5 @@ struct User: Decodable {
         case lastName = "last_name"
         case photo = "photo_50"
         case isOnline = "online"
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        self.id = try? container.decode(Int.self, forKey: .id)
-        self.firstName = try? container.decode(String.self, forKey: .firstName)
-        self.lastName = try? container.decode(String.self, forKey: .lastName)
-        self.photo = try? container.decode(String.self, forKey: .photo)
-        self.isOnline = try? container.decode(Int.self, forKey: .isOnline)
     }
 }
