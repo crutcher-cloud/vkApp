@@ -79,23 +79,5 @@ class GroupsTableVC: UITableViewController, UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        let session = Session.instance
-//        guard let url = URL(string: "https://api.vk.com/method/groups.search?access_token=\(session.token)&q=\(searchText)&v=5.124") else { return }
-//
-//        URLSession.shared.dataTask(with: url) { (data, response, error) in
-//            if let response = response {
-//                print(response)
-//            }
-//
-//            guard let data = data else { return }
-//            print(data)
-//
-//            do {
-//                let json = try JSONSerialization.jsonObject(with: data, options: [])
-//                print(json)
-//            } catch {
-//                print(error)
-//            }
-//        }.resume()
     }
 }

@@ -20,8 +20,8 @@ struct GroupAPIResponse: Decodable {
 
 class Group: Object, Decodable {
     dynamic var id: Int? = 0
-    dynamic var name: String? = ""
-    dynamic var photo: String? = ""
+    @objc dynamic var name: String? = ""
+    @objc dynamic var photo: String? = ""
     
     enum CodingKeys: String, CodingKey {
         case id

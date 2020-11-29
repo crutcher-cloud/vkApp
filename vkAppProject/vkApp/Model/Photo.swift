@@ -23,7 +23,7 @@ struct Photo: Decodable {
 }
 
 class PhotoSizes: Object, Decodable {
-    dynamic var url: String? = ""
+    @objc dynamic var url: String? = ""
     
     enum CodingKeys: String, CodingKey {
         case url

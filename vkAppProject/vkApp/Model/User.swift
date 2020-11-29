@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import UIKit
 import RealmSwift
 
 struct UserListResponse: Decodable {
@@ -21,9 +20,9 @@ struct UserAPIResponse: Decodable {
 
 class User: Object, Decodable {
     dynamic var id: Int? = 0
-    dynamic var firstName: String? = ""
-    dynamic var lastName: String? = ""
-    dynamic var photo: String? = ""
+    @objc dynamic var firstName: String? = ""
+    @objc dynamic var lastName: String? = ""
+    @objc dynamic var photo: String? = ""
     dynamic var isOnline: Int? = 0
     
     enum CodingKeys: String, CodingKey {
