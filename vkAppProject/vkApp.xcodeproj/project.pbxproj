@@ -11,6 +11,7 @@
 		DA0C895525054D1400D8DC34 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C895425054D1400D8DC34 /* NewsTableViewCell.swift */; };
 		DA12487D252A299900D4FB8C /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA12487C252A299800D4FB8C /* Photo.swift */; };
 		DA2E353F24F6C42100AFB512 /* CustomLikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2E353E24F6C42100AFB512 /* CustomLikeControl.swift */; };
+		DA3165C1257BD16200C66586 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3165C0257BD16200C66586 /* Group.swift */; };
 		DA42053A24DD59C900481C4C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA42053924DD59C900481C4C /* Extensions.swift */; };
 		DA524A3724DB023700AAB0F9 /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA524A3624DB023700AAB0F9 /* FriendsTableViewController.swift */; };
 		DA524A3C24DB031800AAB0F9 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA524A3B24DB031800AAB0F9 /* FriendTableViewCell.swift */; };
@@ -19,7 +20,7 @@
 		DA65A12B2520AC3000DF4958 /* NetworkAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA65A12A2520AC3000DF4958 /* NetworkAuthViewController.swift */; };
 		DA7FC3A82503FA7F0072A3A9 /* ImageSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7FC3A72503FA7F0072A3A9 /* ImageSliderViewController.swift */; };
 		DA9634F624DB10F9001B8767 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9634F524DB10F9001B8767 /* User.swift */; };
-		DA9634F824DB1B49001B8767 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9634F724DB1B49001B8767 /* Group.swift */; };
+		DA9634F824DB1B49001B8767 /* UserGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9634F724DB1B49001B8767 /* UserGroup.swift */; };
 		DAC07FC22520B77000236AE2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC07FC12520B77000236AE2 /* WebKit.framework */; };
 		DADA93D124DC651D00186C1D /* GroupsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADA93D024DC651D00186C1D /* GroupsTableVC.swift */; };
 		DAE087AB24D30E4C00734151 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE087AA24D30E4C00734151 /* AppDelegate.swift */; };
@@ -42,6 +43,7 @@
 		DA0C895425054D1400D8DC34 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		DA12487C252A299800D4FB8C /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		DA2E353E24F6C42100AFB512 /* CustomLikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLikeControl.swift; sourceTree = "<group>"; };
+		DA3165C0257BD16200C66586 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		DA42053924DD59C900481C4C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = vkApp/Extensions.swift; sourceTree = SOURCE_ROOT; };
 		DA524A3624DB023700AAB0F9 /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
 		DA524A3B24DB031800AAB0F9 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
@@ -50,7 +52,7 @@
 		DA65A12A2520AC3000DF4958 /* NetworkAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAuthViewController.swift; sourceTree = "<group>"; };
 		DA7FC3A72503FA7F0072A3A9 /* ImageSliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSliderViewController.swift; sourceTree = "<group>"; };
 		DA9634F524DB10F9001B8767 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		DA9634F724DB1B49001B8767 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		DA9634F724DB1B49001B8767 /* UserGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGroup.swift; sourceTree = "<group>"; };
 		DAC07FC12520B77000236AE2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		DADA93D024DC651D00186C1D /* GroupsTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTableVC.swift; sourceTree = "<group>"; };
 		DAE087A724D30E4C00734151 /* vkApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vkApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,7 +123,8 @@
 			isa = PBXGroup;
 			children = (
 				DA9634F524DB10F9001B8767 /* User.swift */,
-				DA9634F724DB1B49001B8767 /* Group.swift */,
+				DA9634F724DB1B49001B8767 /* UserGroup.swift */,
+				DA3165C0257BD16200C66586 /* Group.swift */,
 				DA12487C252A299800D4FB8C /* Photo.swift */,
 			);
 			path = Model;
@@ -301,12 +304,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA3165C1257BD16200C66586 /* Group.swift in Sources */,
 				DAFAB3CB251D9C9000973042 /* Session.swift in Sources */,
 				DA65A12B2520AC3000DF4958 /* NetworkAuthViewController.swift in Sources */,
 				DAE80DE324DC0926001DFFFB /* FriendImagesCollectionCell.swift in Sources */,
 				DAE80DDE24DC03BF001DFFFB /* GroupTableViewCell.swift in Sources */,
 				DA12487D252A299900D4FB8C /* Photo.swift in Sources */,
-				DA9634F824DB1B49001B8767 /* Group.swift in Sources */,
+				DA9634F824DB1B49001B8767 /* UserGroup.swift in Sources */,
 				DAE80DDC24DC0385001DFFFB /* UserGroupsTableViewController.swift in Sources */,
 				DAE087AB24D30E4C00734151 /* AppDelegate.swift in Sources */,
 				DA9634F624DB10F9001B8767 /* User.swift in Sources */,

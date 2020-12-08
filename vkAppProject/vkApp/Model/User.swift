@@ -19,17 +19,19 @@ struct UserAPIResponse: Decodable {
 }
 
 class User: Object, Decodable {
-    dynamic var id: Int? = 0
+    @objc dynamic var id = 0
     @objc dynamic var firstName: String? = ""
     @objc dynamic var lastName: String? = ""
     @objc dynamic var photo: String? = ""
-    dynamic var isOnline: Int? = 0
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case firstName = "first_name"
         case lastName = "last_name"
         case photo = "photo_50"
-        case isOnline = "online"
+    }
+    
+    override static func primaryKey() -> String? {
+        return "id"
     }
 }

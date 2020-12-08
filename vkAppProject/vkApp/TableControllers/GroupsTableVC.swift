@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import RealmSwift
 
 
 class GroupsTableVC: UITableViewController, UISearchBarDelegate {
@@ -19,13 +20,8 @@ class GroupsTableVC: UITableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getGroups()
+        getGroups(completion: self.loadGroupsData)
         
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5), execute: {
-            
-            self.tableView.reloadData()
-        })
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -33,7 +29,7 @@ class GroupsTableVC: UITableViewController, UISearchBarDelegate {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
-    func getGroups() {
+    func getGroups(completion: @escaping () -> Void) {
         let token = session.token
         let apiVersion = "5.124"
         
@@ -45,13 +41,31 @@ class GroupsTableVC: UITableViewController, UISearchBarDelegate {
                 do{
                     let groups = try JSONDecoder().decode(GroupListResponse.self, from: data)
                     let groupsList = groups.response.items
-                    self.groups = groupsList!
                     
-                    print(groupsList![0])
+                    self.saveGroupsData(groups: groupsList!)
+                    completion()
                 } catch { print(error) }
             }
         })
         
+    }
+    
+    func saveGroupsData(groups: [Group]) {
+        let realm = try! Realm()
+        try? realm.write {
+            realm.add(groups, update: .modified)
+        }
+    }
+    
+    func loadGroupsData() {
+        do{
+            let realm = try Realm()
+            self.groups = Array(realm.objects(Group.self))
+
+            self.tableView.reloadData()
+        } catch {
+            print(error)
+        }
     }
     
     // MARK: - Table view data source

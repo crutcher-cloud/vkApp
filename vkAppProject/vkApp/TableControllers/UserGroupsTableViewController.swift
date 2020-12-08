@@ -8,13 +8,14 @@
 
 import UIKit
 import Alamofire
+import RealmSwift
 
 class UserGroupsTableViewController: UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var groups: [Group] = []
+    var groups: [UserGroup] = []
     
-    var filteredGroups: [Group] = []
+    var filteredGroups: [UserGroup] = []
     
     @IBAction func addGroup(segue: UIStoryboardSegue) {
 //        if segue.identifier == "addGroup" {
@@ -38,7 +39,7 @@ class UserGroupsTableViewController: UITableViewController, UISearchBarDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getGroups()
+        getGroups(completion: self.loadGroupsData)
         
         tableView.dataSource = self
         searchBar.delegate = self
@@ -50,7 +51,7 @@ class UserGroupsTableViewController: UITableViewController, UISearchBarDelegate 
         })
     }
     
-    func getGroups() {
+    func getGroups(completion: @escaping () -> Void) {
         let token = session.token
         let userID = session.userId
         let extended = 1
@@ -62,13 +63,34 @@ class UserGroupsTableViewController: UITableViewController, UISearchBarDelegate 
                 print(error)
             case .success(let data):
                 do{
-                    let groups = try JSONDecoder().decode(GroupListResponse.self, from: data)
+                    let groups = try JSONDecoder().decode(UserGroupListResponse.self, from: data)
                     let groupsList = groups.response.items
                     self.groups = groupsList!
+                    
+                    self.saveGroupsData(groups: groupsList!)
+                    completion()
                 } catch { print(error) }
             }
         })
         
+    }
+    
+    func saveGroupsData(groups: [UserGroup]) {
+        let realm = try! Realm()
+        try? realm.write {
+            realm.add(groups, update: .modified)
+        }
+    }
+    
+    func loadGroupsData() {
+        do{
+            let realm = try Realm()
+            self.groups = Array(realm.objects(UserGroup.self))
+        
+            self.tableView.reloadData()
+        } catch {
+            print(error)
+        }
     }
     
     // MARK: - Table view data source
@@ -100,7 +122,7 @@ class UserGroupsTableViewController: UITableViewController, UISearchBarDelegate 
         // Use the filter method to iterate over all items in the data array
         // For each item, return true if the item should be included and false if the
         // item should NOT be included
-        filteredGroups = searchText.isEmpty ? groups : groups.filter({(dataString: Group) -> Bool in
+        filteredGroups = searchText.isEmpty ? groups : groups.filter({(dataString: UserGroup) -> Bool in
             // If dataItem matches the searchText, return true to include it
             return dataString.name!.range(of: searchText, options: .caseInsensitive) != nil
             //dataString.range(of: searchText, options: .caseInsensitive) != nil

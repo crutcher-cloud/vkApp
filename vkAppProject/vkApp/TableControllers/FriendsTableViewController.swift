@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import RealmSwift
 
 class FriendsTableViewController: UITableViewController {
     
@@ -23,34 +24,13 @@ class FriendsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getFriends()
-        
         tableView.dataSource = self
         searchBar.delegate = self
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5), execute: {
-            //Заполнение словаря с друзьями в формате "первая буква" : [друзья]
-            for friend in self.friends {
-                let friendKey = String(friend.lastName!.prefix(1))
-                if var friendValues = self.friendsDictionary[friendKey] {
-                    friendValues.append(friend)
-                    self.friendsDictionary[friendKey] = friendValues
-                } else {
-                    self.friendsDictionary[friendKey] = [friend]
-                }
-            }
-            
-            self.filteredFriendsDictionary = self.friendsDictionary
-
-            self.friendsSectionTitles = [String] (self.friendsDictionary.keys)
-            self.friendsSectionTitles = self.friendsSectionTitles.sorted(by: {$0 < $1})
-            
-            self.tableView.reloadData()
-        })
-        
+        getFriends(completion: self.loadFriendsData)
     }
     
-    func getFriends() {
+    func getFriends(completion: @escaping () -> Void) {
         let token = session.token
         let order = "name"
         let fields = "photo_50"
@@ -65,12 +45,46 @@ class FriendsTableViewController: UITableViewController {
                 do{
                     let users = try JSONDecoder().decode(UserListResponse.self, from: data)
                     let friendsList = users.response.items
-                    self.friends = friendsList!
+                    
+                    self.saveFriendsData(friends: friendsList!)
+                    completion()
                 } catch { print(error.localizedDescription) }
             }
         })
-        
-        
+    }
+    
+    func saveFriendsData(friends: [User]) {
+        let realm = try! Realm()
+        try? realm.write {
+            realm.add(friends, update: .modified)
+        }
+    }
+    
+    func loadFriendsData() {
+        do {
+            let realm = try Realm()
+            self.friends = Array(realm.objects(User.self))
+            
+            //Заполнение словаря с друзьями в формате "первая буква" : [друзья]
+            for friend in self.friends {
+                let friendKey = String(friend.lastName!.prefix(1))
+                if var friendValues = self.friendsDictionary[friendKey] {
+                    friendValues.append(friend)
+                    self.friendsDictionary[friendKey] = friendValues
+                } else {
+                    self.friendsDictionary[friendKey] = [friend]
+                }
+            }
+
+            self.filteredFriendsDictionary = self.friendsDictionary
+
+            self.friendsSectionTitles = [String] (self.friendsDictionary.keys)
+            self.friendsSectionTitles = self.friendsSectionTitles.sorted(by: {$0 < $1})
+
+            self.tableView.reloadData()
+        } catch {
+            print(error)
+        }
     }
     
     // MARK: - Table view data source
@@ -131,7 +145,7 @@ class FriendsTableViewController: UITableViewController {
             
             let friendKey = friendsSectionTitles[selectedSection]
             if let friendValue = filteredFriendsDictionary[friendKey] {
-                destination.friend_id = friendValue[selectedCellIndex].id!
+                destination.friend_id = friendValue[selectedCellIndex].id
             }
         }
     }
