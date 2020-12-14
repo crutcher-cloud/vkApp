@@ -23,49 +23,48 @@ extension CGColor {
     }
 }
 
-extension FriendsTableViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        friendsSectionTitles = []
-        filteredFriendsDictionary = [:]
-        var filteredFriends = [User]() //Массив результата поиска
+//extension FriendsTableViewController: UISearchBarDelegate {
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        friendsSectionTitles = []
+//        filteredFriendsDictionary = [:]
+//        var filteredFriends = [User]() //Массив результата поиска
+//
+//        let friendKey = String(searchText.first ?? "?")
+//
+//        if friendKey != "?" {
+//            friendsSectionTitles.append(friendKey)
+//        } else {
+//            friendsSectionTitles = [String] (friendsDictionary.keys)
+//            friendsSectionTitles = friendsSectionTitles.sorted(by: {$0 < $1})
+//
+//            filteredFriendsDictionary = friendsDictionary
+//        }
+//
+//        Заполнение результата поиска.
+//        for friend in friends {
+//            if friend.lastName!.prefix(searchText.count).contains(searchText) {
+//                filteredFriends.append(friend)
+//                filteredFriendsDictionary[friendKey] = filteredFriends
+//            }
+//        }
+//
+//        tableView.reloadData()
+//    }
+//
+//    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+//        self.searchBar.showsCancelButton = true
+//    }
+//
+//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+//        filteredFriendsDictionary = friendsDictionary
+//
+//        friendsSectionTitles = [String] (friendsDictionary.keys)
+//        friendsSectionTitles = friendsSectionTitles.sorted(by: {$0 < $1})
+//
+//        searchBar.showsCancelButton = false
+//        searchBar.text = ""
+//        searchBar.resignFirstResponder()
+//
+//        tableView.reloadData()
+//    }
 
-        let friendKey = String(searchText.first ?? "?")
-        
-        if friendKey != "?" {
-            friendsSectionTitles.append(friendKey)
-        } else {
-            friendsSectionTitles = [String] (friendsDictionary.keys)
-            friendsSectionTitles = friendsSectionTitles.sorted(by: {$0 < $1})
-
-            filteredFriendsDictionary = friendsDictionary
-        }
-
-        //Заполнение результата поиска.
-        for friend in friends {
-            if friend.lastName!.prefix(searchText.count).contains(searchText) {
-                filteredFriends.append(friend)
-                filteredFriendsDictionary[friendKey] = filteredFriends
-            }
-        }
-
-        tableView.reloadData()
-    }
-
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        self.searchBar.showsCancelButton = true
-    }
-
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        filteredFriendsDictionary = friendsDictionary
-
-        friendsSectionTitles = [String] (friendsDictionary.keys)
-        friendsSectionTitles = friendsSectionTitles.sorted(by: {$0 < $1})
-
-        searchBar.showsCancelButton = false
-        searchBar.text = ""
-        searchBar.resignFirstResponder()
-
-        tableView.reloadData()
-    }
-
-}

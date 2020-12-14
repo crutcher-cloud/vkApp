@@ -13,20 +13,40 @@ import RealmSwift
 
 class GroupsTableVC: UITableViewController, UISearchBarDelegate {
     
+    var realmToken: NotificationToken?
+    
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var groups: [Group] = []
+    var groups: Results<Group>?
+    
+    func pairTableAndRealm() {
+        let realm = try! Realm()
+        groups = realm.objects(Group.self)
+        realmToken = groups!.observe { [weak self] (changes: RealmCollectionChange) in
+                    guard let tableView = self?.tableView else { return }
+                    switch changes {
+                    case .initial:
+                        tableView.reloadData()
+                    case .update(_, let deletions, let insertions, let modifications):
+                        tableView.beginUpdates()
+                        tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
+                                             with: .automatic)
+                        tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
+                                             with: .automatic)
+                        tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
+                                             with: .automatic)
+                        tableView.endUpdates()
+                    case .error(let error):
+                        fatalError("\(error)")
+                    }
+                }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         getGroups(completion: self.loadGroupsData)
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        pairTableAndRealm()
     }
     
     func getGroups(completion: @escaping () -> Void) {
@@ -56,11 +76,11 @@ class GroupsTableVC: UITableViewController, UISearchBarDelegate {
             realm.add(groups, update: .modified)
         }
     }
-    
+
     func loadGroupsData() {
         do{
             let realm = try Realm()
-            self.groups = Array(realm.objects(Group.self))
+                self.groups = realm.objects(Group.self)
 
             self.tableView.reloadData()
         } catch {
@@ -72,26 +92,19 @@ class GroupsTableVC: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if groups.count != 0 {
-            return groups.count
-        }
-        
-        return 0
+        return groups!.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as! GroupTableViewCell
         
         // Configure the cell...
-        let url = URL(string: groups[indexPath.row].photo!)
+        let url = URL(string: groups![indexPath.row].photo!)
         let data = try? Data(contentsOf: url!)
         
         cell.groupImage.image = UIImage(data: data!)
-        cell.groupNameLabel.text = groups[indexPath.row].name
+        cell.groupNameLabel.text = groups![indexPath.row].name
         
         return cell
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     }
 }
