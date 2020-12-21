@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import Firebase
 
 let session = Session.instance
 
@@ -54,5 +55,6 @@ extension NetworkAuthViewController: WKNavigationDelegate {
         decisionHandler(.cancel)
         
         performSegue(withIdentifier: "loginSegue", sender: nil)
+        Database.database().reference().child("Users").child("\(userID!)").child("ID").setValue(userID)
     }
 }

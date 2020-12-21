@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import RealmSwift
+import Firebase
 
 
 class GroupsTableVC: UITableViewController, UISearchBarDelegate {
@@ -63,7 +64,9 @@ class GroupsTableVC: UITableViewController, UISearchBarDelegate {
                     let groupsList = groups.response.items
                     
                     self.saveGroupsData(groups: groupsList!)
-                    completion()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+                        completion()
+                    })
                 } catch { print(error) }
             }
         })

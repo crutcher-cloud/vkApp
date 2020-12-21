@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import RealmSwift
+import Firebase
 
 class UserGroupsTableViewController: UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
@@ -66,6 +67,8 @@ class UserGroupsTableViewController: UITableViewController, UISearchBarDelegate 
         let extended = 1
         let apiVersion = "5.124"
         
+        var idForFirebase: [Int] = []
+        
         AF.request("https://api.vk.com/method/groups.get?access_token=\(token)&user_id=\(userID)&extended=\(extended)&v=\(apiVersion)").responseData(completionHandler: { (response) in
             switch response.result {
             case .failure(let error):
@@ -76,7 +79,16 @@ class UserGroupsTableViewController: UITableViewController, UISearchBarDelegate 
                     let groupsList = groups.response.items
                     
                     self.saveGroupsData(groups: groupsList!)
-                    completion()
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+                        completion()
+                    })
+                    
+                    for group in groupsList! {
+                        idForFirebase.append(group.id)
+                    }
+                    
+                    Database.database().reference().child("Users").child("\(session.userId)").child("Groups").setValue(idForFirebase)
                 } catch { print(error) }
             }
         })
