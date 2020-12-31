@@ -41,14 +41,14 @@ class NewsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath) as! NewsTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostCell
         
         cell.newsTextLabel.text = news[indexPath.row]
         
         cell.friendImage.image = friendImages[indexPath.row]
         cell.friendNameLabel.text = friends[indexPath.row]
         cell.postDateTimeLabel.text = "06.09.2020 12:31"
-        cell.newsImage.image = newsImages[indexPath.row]
+        //cell.newsImage.image = newsImages[indexPath.row]
         // Configure the cell...
 
         return cell
