@@ -57,6 +57,7 @@ class FriendsTableViewController: UITableViewController {
         getFriends(completion: self.loadFriendsData)
         pairTableAndRealm()
         
+        debugPrint("Token: \(session.token)")
     }
     
     func getFriends(completion: @escaping () -> Void) {

@@ -429,7 +429,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="02G-Ii-Twb" secondAttribute="bottom" constant="9" id="aYD-Wi-eSi"/>
                                                 <constraint firstItem="E8z-3X-8VP" firstAttribute="leading" secondItem="02G-Ii-Twb" secondAttribute="trailing" constant="12" id="acu-hT-Npr"/>
                                                 <constraint firstItem="YUg-4f-eoP" firstAttribute="leading" secondItem="KTo-MN-F8M" secondAttribute="trailing" constant="5" id="b9z-74-ODy"/>
-                                                <constraint firstAttribute="trailing" secondItem="i2t-0I-MBb" secondAttribute="trailing" constant="12" id="gHv-9u-8d4"/>
+                                                <constraint firstAttribute="trailing" secondItem="i2t-0I-MBb" secondAttribute="trailing" priority="999" constant="12" id="gHv-9u-8d4"/>
                                                 <constraint firstAttribute="bottom" secondItem="2Iv-hZ-rz8" secondAttribute="bottom" constant="8" id="iTk-Fh-kBj"/>
                                                 <constraint firstItem="02G-Ii-Twb" firstAttribute="leading" secondItem="aYx-PB-mQH" secondAttribute="trailing" constant="8" id="jgg-Pe-j3n"/>
                                             </constraints>

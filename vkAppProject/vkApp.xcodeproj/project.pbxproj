@@ -12,6 +12,8 @@
 		DA0C895325054CEA00D8DC34 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C895225054CEA00D8DC34 /* NewsTableViewController.swift */; };
 		DA0C895525054D1400D8DC34 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C895425054D1400D8DC34 /* NewsTableViewCell.swift */; };
 		DA12487D252A299900D4FB8C /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA12487C252A299800D4FB8C /* Photo.swift */; };
+		DA170BFA25AB3BBF003B370E /* NewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA170BF925AB3BBF003B370E /* NewsService.swift */; };
+		DA170BFD25AB44A5003B370E /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA170BFC25AB44A5003B370E /* News.swift */; };
 		DA2E353F24F6C42100AFB512 /* CustomLikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2E353E24F6C42100AFB512 /* CustomLikeControl.swift */; };
 		DA3165C1257BD16200C66586 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3165C0257BD16200C66586 /* Group.swift */; };
 		DA42053A24DD59C900481C4C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA42053924DD59C900481C4C /* Extensions.swift */; };
@@ -46,6 +48,8 @@
 		DA0C895225054CEA00D8DC34 /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		DA0C895425054D1400D8DC34 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		DA12487C252A299800D4FB8C /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		DA170BF925AB3BBF003B370E /* NewsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsService.swift; sourceTree = "<group>"; };
+		DA170BFC25AB44A5003B370E /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		DA2E353E24F6C42100AFB512 /* CustomLikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLikeControl.swift; sourceTree = "<group>"; };
 		DA3165C0257BD16200C66586 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		DA42053924DD59C900481C4C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = vkApp/Extensions.swift; sourceTree = SOURCE_ROOT; };
@@ -131,6 +135,7 @@
 				DA9634F724DB1B49001B8767 /* UserGroup.swift */,
 				DA3165C0257BD16200C66586 /* Group.swift */,
 				DA12487C252A299800D4FB8C /* Photo.swift */,
+				DA170BFC25AB44A5003B370E /* News.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -191,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				DAFAB3CA251D9C9000973042 /* Session.swift */,
+				DA170BF925AB3BBF003B370E /* NewsService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -319,6 +325,7 @@
 				DA12487D252A299900D4FB8C /* Photo.swift in Sources */,
 				DA9634F824DB1B49001B8767 /* UserGroup.swift in Sources */,
 				DAE80DDC24DC0385001DFFFB /* UserGroupsTableViewController.swift in Sources */,
+				DA170BFA25AB3BBF003B370E /* NewsService.swift in Sources */,
 				DAE087AB24D30E4C00734151 /* AppDelegate.swift in Sources */,
 				DA9634F624DB10F9001B8767 /* User.swift in Sources */,
 				DA0C895325054CEA00D8DC34 /* NewsTableViewController.swift in Sources */,
@@ -328,6 +335,7 @@
 				DA524A3724DB023700AAB0F9 /* FriendsTableViewController.swift in Sources */,
 				DA524A3C24DB031800AAB0F9 /* FriendTableViewCell.swift in Sources */,
 				DAE087AD24D30E4C00734151 /* SceneDelegate.swift in Sources */,
+				DA170BFD25AB44A5003B370E /* News.swift in Sources */,
 				DADA93D124DC651D00186C1D /* GroupsTableVC.swift in Sources */,
 				DA5DEFAB250152C000A0E10D /* SplashViewController.swift in Sources */,
 				DA0A76F8259C984900EF6D21 /* PostCell.swift in Sources */,
