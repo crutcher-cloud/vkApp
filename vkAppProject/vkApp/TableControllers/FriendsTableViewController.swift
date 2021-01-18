@@ -54,67 +54,9 @@ class FriendsTableViewController: UITableViewController {
         tableView.dataSource = self
         //searchBar.delegate = self
         
-        getFriends(completion: self.loadFriendsData)
+        let getFriends = GetFriendsDataOperation()
+        getFriends.start()
         pairTableAndRealm()
-        
-        debugPrint("Token: \(session.token)")
-    }
-    
-    func getFriends(completion: @escaping () -> Void) {
-        let token = session.token
-        let order = "name"
-        let fields = "photo_50"
-        let nameCase = "nom"
-        let apiVersion = "5.124"
-
-        AF.request("https://api.vk.com/method/friends.get?access_token=\(token)&order=\(order)&fields=\(fields)&name_case=\(nameCase)&v=\(apiVersion)").responseData(completionHandler: { (response) in
-            switch response.result {
-            case .failure(let error):
-                print(error.localizedDescription)
-            case .success(let data):
-                do{
-                    let users = try JSONDecoder().decode(UserListResponse.self, from: data)
-                    let friendsList = users.response.items
-                    
-                    self.saveFriendsData(friends: friendsList!)
-                    completion()
-                } catch { print(error.localizedDescription) }
-            }
-        })
-    }
-    
-    func saveFriendsData(friends: [User]) {
-        let realm = try! Realm()
-        try? realm.write {
-            realm.add(friends, update: .modified)
-        }
-    }
-    
-    func loadFriendsData() {
-        do {
-            let realm = try Realm()
-            self.friends = realm.objects(User.self)
-            
-            //Заполнение словаря с друзьями в формате "первая буква" : [друзья]
-//            for friend in friends! {
-//                let friendKey = String(friend.lastName!.prefix(1))
-//                if var friendValues = self.friendsDictionary[friendKey] {
-//                    friendValues.append(friend)
-//                    self.friendsDictionary[friendKey] = friendValues
-//                } else {
-//                    self.friendsDictionary[friendKey] = [friend]
-//                }
-//            }
-
-            //self.filteredFriendsDictionary = self.friendsDictionary
-
-            //self.friendsSectionTitles = [String] (self.friendsDictionary.keys)
-            //self.friendsSectionTitles = self.friendsSectionTitles.sorted(by: {$0 < $1})
-
-            self.tableView.reloadData()
-        } catch {
-            print(error)
-        }
     }
     
     // MARK: - Table view data source
