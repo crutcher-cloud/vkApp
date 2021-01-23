@@ -18,6 +18,7 @@
 		DA3165C1257BD16200C66586 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3165C0257BD16200C66586 /* Group.swift */; };
 		DA3FE1FB25B479A200888808 /* FriendsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3FE1FA25B479A200888808 /* FriendsService.swift */; };
 		DA42053A24DD59C900481C4C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA42053924DD59C900481C4C /* Extensions.swift */; };
+		DA4B937E25BC1DC400F738ED /* GroupsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4B937D25BC1DC400F738ED /* GroupsService.swift */; };
 		DA524A3724DB023700AAB0F9 /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA524A3624DB023700AAB0F9 /* FriendsTableViewController.swift */; };
 		DA524A3C24DB031800AAB0F9 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA524A3B24DB031800AAB0F9 /* FriendTableViewCell.swift */; };
 		DA58402D24E9A7E4004E229C /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58402C24E9A7E4004E229C /* AvatarView.swift */; };
@@ -55,6 +56,7 @@
 		DA3165C0257BD16200C66586 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		DA3FE1FA25B479A200888808 /* FriendsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsService.swift; sourceTree = "<group>"; };
 		DA42053924DD59C900481C4C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = vkApp/Extensions.swift; sourceTree = SOURCE_ROOT; };
+		DA4B937D25BC1DC400F738ED /* GroupsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsService.swift; sourceTree = "<group>"; };
 		DA524A3624DB023700AAB0F9 /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
 		DA524A3B24DB031800AAB0F9 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
 		DA58402C24E9A7E4004E229C /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				DAFAB3CA251D9C9000973042 /* Session.swift */,
 				DA170BF925AB3BBF003B370E /* NewsService.swift */,
 				DA3FE1FA25B479A200888808 /* FriendsService.swift */,
+				DA4B937D25BC1DC400F738ED /* GroupsService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				DADA93D124DC651D00186C1D /* GroupsTableVC.swift in Sources */,
 				DA5DEFAB250152C000A0E10D /* SplashViewController.swift in Sources */,
 				DA0A76F8259C984900EF6D21 /* PostCell.swift in Sources */,
+				DA4B937E25BC1DC400F738ED /* GroupsService.swift in Sources */,
 				DA7FC3A82503FA7F0072A3A9 /* ImageSliderViewController.swift in Sources */,
 				DA0C895525054D1400D8DC34 /* NewsTableViewCell.swift in Sources */,
 			);
