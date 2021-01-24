@@ -18,8 +18,9 @@ class FriendsTableViewController: UITableViewController {
     
     //var friendsDictionary: [String: Results<User>?] = [:]
     var friendsSectionTitles = [String]()
-
+    
     var friends: Results<User>?
+    var photoService: PhotoService?
     
     //var filteredFriendsDictionary: [String: Results<User>?] = [:] //Словарь друзей, использующийся для поиска
     
@@ -27,24 +28,24 @@ class FriendsTableViewController: UITableViewController {
         let realm = try! Realm()
         friends = realm.objects(User.self)
         realmToken = friends!.observe { [weak self] (changes: RealmCollectionChange) in
-                    guard let tableView = self?.tableView else { return }
-                    switch changes {
-                    case .initial:
-                        tableView.reloadData()
-                    case .update(_, let deletions, let insertions, let modifications):
-                        tableView.beginUpdates()
-                        tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
-                                             with: .automatic)
-                        tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
-                                             with: .automatic)
-                        tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
-                                             with: .automatic)
-                        tableView.endUpdates()
-                    case .error(let error):
-                        fatalError("\(error)")
-                    }
-                }
-
+            guard let tableView = self?.tableView else { return }
+            switch changes {
+            case .initial:
+                tableView.reloadData()
+            case .update(_, let deletions, let insertions, let modifications):
+                tableView.beginUpdates()
+                tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
+                                     with: .automatic)
+                tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                tableView.endUpdates()
+            case .error(let error):
+                fatalError("\(error)")
+            }
+        }
+        
         
     }
     
@@ -54,6 +55,8 @@ class FriendsTableViewController: UITableViewController {
         tableView.dataSource = self
         //searchBar.delegate = self
         
+        photoService = PhotoService(container: tableView)
+        
         let getFriends = GetFriendsDataOperation()
         getFriends.start()
         pairTableAndRealm()
@@ -61,10 +64,10 @@ class FriendsTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return friends!.count
-//    }
+    //    override func numberOfSections(in tableView: UITableView) -> Int {
+    //        // #warning Incomplete implementation, return the number of sections
+    //        return friends!.count
+    //    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -75,12 +78,14 @@ class FriendsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as! FriendTableViewCell
         
         // Configure the cell...
-        let url = URL(string: friends![indexPath.row].photo!)
-        let data = try? Data(contentsOf: url!)
-            
-            cell.friendNameLabel.text = "\(friends![indexPath.row].firstName!) \(friends![indexPath.row].lastName!)"
-            cell.friendImage.image = UIImage(data: data!)
+        //let url = URL(string: friends![indexPath.row].photo!)
+        //let data = try? Data(contentsOf: url!)
+        let url = friends![indexPath.row].photo!
         
+        
+        cell.friendNameLabel.text = "\(friends![indexPath.row].firstName!) \(friends![indexPath.row].lastName!)"
+        cell.friendImage.image = photoService?.photo(at: indexPath, by: url)
+
         return cell
     }
     
@@ -89,13 +94,13 @@ class FriendsTableViewController: UITableViewController {
         view.layer.opacity = 0.5
     }
     
-//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return friendsSectionTitles[section]
-//    }
+    //    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    //        return friendsSectionTitles[section]
+    //    }
     
-//    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-//        return friendsSectionTitles
-//    }
+    //    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+    //        return friendsSectionTitles
+    //    }
     
     
     // MARK: - Transfer image

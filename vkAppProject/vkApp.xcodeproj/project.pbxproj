@@ -17,6 +17,7 @@
 		DA2E353F24F6C42100AFB512 /* CustomLikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2E353E24F6C42100AFB512 /* CustomLikeControl.swift */; };
 		DA3165C1257BD16200C66586 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3165C0257BD16200C66586 /* Group.swift */; };
 		DA3FE1FB25B479A200888808 /* FriendsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3FE1FA25B479A200888808 /* FriendsService.swift */; };
+		DA41E32E25BD6E630066985A /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA41E32D25BD6E630066985A /* PhotoService.swift */; };
 		DA42053A24DD59C900481C4C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA42053924DD59C900481C4C /* Extensions.swift */; };
 		DA4B937E25BC1DC400F738ED /* GroupsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4B937D25BC1DC400F738ED /* GroupsService.swift */; };
 		DA524A3724DB023700AAB0F9 /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA524A3624DB023700AAB0F9 /* FriendsTableViewController.swift */; };
@@ -55,6 +56,7 @@
 		DA2E353E24F6C42100AFB512 /* CustomLikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLikeControl.swift; sourceTree = "<group>"; };
 		DA3165C0257BD16200C66586 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		DA3FE1FA25B479A200888808 /* FriendsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsService.swift; sourceTree = "<group>"; };
+		DA41E32D25BD6E630066985A /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
 		DA42053924DD59C900481C4C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = vkApp/Extensions.swift; sourceTree = SOURCE_ROOT; };
 		DA4B937D25BC1DC400F738ED /* GroupsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsService.swift; sourceTree = "<group>"; };
 		DA524A3624DB023700AAB0F9 /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				DA170BF925AB3BBF003B370E /* NewsService.swift */,
 				DA3FE1FA25B479A200888808 /* FriendsService.swift */,
 				DA4B937D25BC1DC400F738ED /* GroupsService.swift */,
+				DA41E32D25BD6E630066985A /* PhotoService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				DA524A3C24DB031800AAB0F9 /* FriendTableViewCell.swift in Sources */,
 				DAE087AD24D30E4C00734151 /* SceneDelegate.swift in Sources */,
 				DA170BFD25AB44A5003B370E /* News.swift in Sources */,
+				DA41E32E25BD6E630066985A /* PhotoService.swift in Sources */,
 				DADA93D124DC651D00186C1D /* GroupsTableVC.swift in Sources */,
 				DA5DEFAB250152C000A0E10D /* SplashViewController.swift in Sources */,
 				DA0A76F8259C984900EF6D21 /* PostCell.swift in Sources */,
