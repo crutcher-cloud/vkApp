@@ -68,6 +68,7 @@ class PhotoService {
                 
                 DispatchQueue.main.async {
                     self?.images[url] = image
+                    self?.container.reloadRow(atIndexpath: indexPath)
                 }
                 
                 self?.saveImageToCache(url: url, image: image)
