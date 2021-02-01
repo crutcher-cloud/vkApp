@@ -13,13 +13,12 @@ struct NewsListResponse: Decodable {
 }
 
 struct NewsAPIResponse: Decodable {
-    let count: Int?
     let items: [News]?
 }
 
 class News: Decodable {
     @objc dynamic var id = 0
-    @objc dynamic var date = 0
+    dynamic var date: Double?
     @objc dynamic var text: String?
     var likes: NewsLikes?
     var comments: NewsComments?
@@ -28,6 +27,8 @@ class News: Decodable {
     
     enum CodingKeys: String, CodingKey {
         case id = "source_id"
+        case date
+        case text
     }
 }
 

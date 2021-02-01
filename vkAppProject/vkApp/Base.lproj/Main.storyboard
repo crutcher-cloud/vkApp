@@ -146,7 +146,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" id="xhp-hi-iMS">
-                            <rect key="frame" x="0.0" y="0.0" width="265" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
@@ -454,10 +454,14 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="commentsLabel" destination="e21-0y-eKO" id="bvU-HN-EPC"/>
+                                    <outlet property="forwardsLabel" destination="02G-Ii-Twb" id="DYQ-vT-01s"/>
                                     <outlet property="friendImage" destination="4M6-g3-ncr" id="8EV-UV-NGm"/>
                                     <outlet property="friendNameLabel" destination="8vF-7e-lUn" id="KSw-xt-k94"/>
+                                    <outlet property="likesLabel" destination="YUg-4f-eoP" id="8Vc-hT-nqm"/>
                                     <outlet property="newsTextLabel" destination="NIH-23-u0k" id="ccT-Cy-5rR"/>
                                     <outlet property="postDateTimeLabel" destination="Zyw-HE-BCJ" id="2Si-sx-2im"/>
+                                    <outlet property="viewsLabel" destination="i2t-0I-MBb" id="CAT-gn-MMv"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -633,7 +637,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" showsCancelButton="YES" id="cVv-0k-Tfx">
-                            <rect key="frame" x="0.0" y="0.0" width="265" height="56"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits" returnKeyType="go" enablesReturnKeyAutomatically="YES"/>
                         </searchBar>
@@ -749,7 +753,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" id="CIL-HT-cNP">
-                            <rect key="frame" x="0.0" y="0.0" width="265" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>

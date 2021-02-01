@@ -13,6 +13,10 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var friendImage: UIImageView!
     @IBOutlet weak var friendNameLabel: UILabel!
     @IBOutlet weak var postDateTimeLabel: UILabel!
+    @IBOutlet weak var likesLabel: UILabel!
+    @IBOutlet weak var commentsLabel: UILabel!
+    @IBOutlet weak var forwardsLabel: UILabel!
+    @IBOutlet weak var viewsLabel: UILabel!
     
     @IBOutlet weak var newsTextLabel: UITextView!
 
