@@ -18,7 +18,7 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var forwardsLabel: UILabel!
     @IBOutlet weak var viewsLabel: UILabel!
     
-    @IBOutlet weak var newsTextLabel: UITextView!
+    @IBOutlet weak var newsTextLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

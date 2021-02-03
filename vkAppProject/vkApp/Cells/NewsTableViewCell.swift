@@ -22,6 +22,7 @@ class NewsTableViewCell: UITableViewCell {
         // Initialization code
         
         friendImage.frame.size.height = friendImage.frame.size.width
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

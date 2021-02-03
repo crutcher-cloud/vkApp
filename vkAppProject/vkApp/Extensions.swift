@@ -69,6 +69,24 @@ extension CGColor {
     }
 }
 
+extension Dictionary {
+    mutating func merge(other:Dictionary) {
+        for (key,value) in other {
+          self.updateValue(value, forKey:key)
+        }
+      }
+}
+
+extension String {
+    func toImage() -> UIImage? {
+        let url = URL(string: self)
+        let data = try? Data(contentsOf: url!)
+        
+        let image = UIImage(data: data!)
+        return image
+    }
+}
+
 //extension FriendsTableViewController: UISearchBarDelegate {
 //    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 //        friendsSectionTitles = []
