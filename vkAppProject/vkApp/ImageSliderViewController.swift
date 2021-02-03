@@ -67,7 +67,6 @@ class ImageSliderViewController: UIViewController {
                     let data = try? Data(contentsOf: url!)
                     
                     self.friendImage.image = UIImage(data: data!)
-                    //self.friendImage.image = self.arrayOfImages[self.imageIndex]
                 }, completion: nil)
 
             } else {

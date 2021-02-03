@@ -2,23 +2,23 @@
 //  Group.swift
 //  vkApp
 //
-//  Created by Влад Голосков on 05.12.2020.
+//  Created by Влад Голосков on 05.08.2020.
 //  Copyright © 2020 Владислав Голосков. All rights reserved.
 //
 
 import Foundation
 import RealmSwift
 
-struct GroupListResponse: Decodable {
-    let response: GroupAPIResponse
+struct UserGroupListResponse: Decodable {
+    let response: UserGroupAPIResponse
 }
 
-struct GroupAPIResponse: Decodable {
+struct UserGroupAPIResponse: Decodable {
     let count: Int?
-    let items: [Group]?
+    let items: [UserGroup]?
 }
 
-class Group: Object, Decodable {
+class UserGroup: Object, Decodable {
     @objc dynamic var id = 0
     @objc dynamic var name: String? = ""
     @objc dynamic var photo: String? = ""

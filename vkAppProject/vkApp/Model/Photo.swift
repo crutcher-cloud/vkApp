@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 struct PhotoListResponse: Decodable {
     let response: PhotoAPIResponse
@@ -21,8 +22,8 @@ struct Photo: Decodable {
     var sizes: [PhotoSizes]?
 }
 
-struct PhotoSizes: Decodable {
-    let url: String?
+class PhotoSizes: Object, Decodable {
+    @objc dynamic var url: String? = ""
     
     enum CodingKeys: String, CodingKey {
         case url

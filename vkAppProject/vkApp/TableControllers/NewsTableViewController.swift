@@ -10,22 +10,36 @@ import UIKit
 
 class NewsTableViewController: UITableViewController {
     
-    var news = [String]()
-    var newsImages = [UIImage(named: "IIvanov1"), UIImage(named: "YSergeeva1"), UIImage(named: "AVasilyev")]
-    var friendImages = [UIImage(named: "AVasilyev"), UIImage(named: "YSergeeva"), UIImage(named: "IIvanov")]
-    var friends = ["Антон Васильев", "Юлия Сергеева", "Иван Иванов"]
+    var isLoading = false
+    var startIndexForNews = ""
+    
+    var newsList = [News]()
+    
+    var groupsNameDictionary = [Int: String]()
+    var friendsNameDictionary = [Int: String]()
+    
+    var groupsPhotoDictionary = [Int: UIImage]()
+    var friendsPhotoDictionary = [Int: UIImage]()
+    
+    let tableRefreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshNews), for: .valueChanged)
+        return refreshControl
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        news.append("Идейные соображения высшего порядка, а также дальнейшее развитие различных форм деятельности позволяет оценить значение новых предложений. . Товарищи! консультация с широким активом позволяет выполнять важные задания по разработке систем массового участия.")
         
-        news.append("Hello world!")
+        tableView.prefetchDataSource = self
         
-        news.append("Donec in dui nec nulla sagittis fermentum. Etiam malesuada posuere purus in faucibus. Maecenas non nunc suscipit urna blandit suscipit ut eget sem. Duis dictum leo vitae arcu elementum hendrerit. Vivamus quis hendrerit lectus, placerat rhoncus urna. Nulla vitae convallis libero, sed consequat ex. Vivamus mollis elementum turpis sed dapibus. In pharetra, eros sit amet scelerisque congue, felis purus aliquam velit, dapibus malesuada nunc enim sit amet purus. Pellentesque egestas sem vitae sapien porta varius. Nam felis arcu, commodo eget nunc in, dapibus ultrices nisi. Curabitur id fermentum odio. Nunc eu condimentum nisi.")
+        tableView.refreshControl = tableRefreshControl
         
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = UITableView.automaticDimension
+        getNews(startTime: "", startFrom: startIndexForNews, completion: { [self] in
+            tableView.reloadData()
+        })
+        
+        //tableView.rowHeight = UITableView.automaticDimension
+        //tableView.estimatedRowHeight = UITableView.automaticDimension
     }
 
     // MARK: - Table view data source
@@ -37,20 +51,27 @@ class NewsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return news.count
+        return newsList.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath) as! NewsTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostCell
         
-        cell.newsTextLabel.text = news[indexPath.row]
+        cell.newsTextLabel.text = newsList[indexPath.row].text!
+        cell.postDateTimeLabel.text = setDate(unixDate: newsList[indexPath.row].date!)
         
-        cell.friendImage.image = friendImages[indexPath.row]
-        cell.friendNameLabel.text = friends[indexPath.row]
-        cell.postDateTimeLabel.text = "06.09.2020 12:31"
-        cell.newsImage.image = newsImages[indexPath.row]
-        // Configure the cell...
-
+        cell.commentsLabel.text = String(newsList[indexPath.row].comments?.count ?? 0)
+        cell.likesLabel.text = String(newsList[indexPath.row].likes?.count ?? 0)
+        cell.forwardsLabel.text = String(newsList[indexPath.row].reposts?.count ?? 0)
+        cell.viewsLabel.text = String(newsList[indexPath.row].views?.count ?? 0)
+        
+        if newsList[indexPath.row].id < 0 {
+            cell.friendNameLabel.text = setSourceName(indexPath: indexPath)
+            cell.friendImage.image = setSourcePhoto(indexPath: indexPath)
+        } else {
+            cell.friendNameLabel.text = setSourceName(indexPath: indexPath)
+        }
+        
         return cell
     }
 }

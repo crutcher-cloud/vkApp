@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import Firebase
 
 let session = Session.instance
 
@@ -22,7 +23,7 @@ class NetworkAuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let request = URLRequest(url: URL(string: "https://oauth.vk.com/authorize?client_id=7610474&display=mobile&redirect_uri=https://oauth.vk.com/blank.html&scope=friends,photos&response_type=token&v=5.124")!)
+        let request = URLRequest(url: URL(string: "https://oauth.vk.com/authorize?client_id=7610474&display=mobile&redirect_uri=https://oauth.vk.com/blank.html&scope=friends,photos,wall&response_type=token&v=5.124")!)
         webview.load(request)
     }
 }
@@ -54,5 +55,6 @@ extension NetworkAuthViewController: WKNavigationDelegate {
         decisionHandler(.cancel)
         
         performSegue(withIdentifier: "loginSegue", sender: nil)
+        Database.database().reference().child("Users").child("\(userID!)").child("ID").setValue(userID)
     }
 }

@@ -8,94 +8,111 @@
 
 import UIKit
 import Alamofire
+import RealmSwift
+import Firebase
 
 
 class GroupsTableVC: UITableViewController, UISearchBarDelegate {
     
+    let realm = try! Realm()
+    
+    var realmToken: NotificationToken?
+    
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var groups: [Group] = []
+    var groups: Results<Group>?
+    var groupsList: [Group] = []
+    
+    func pairTableAndRealm() {
+        let realm = try! Realm()
+        groups = realm.objects(Group.self)
+        realmToken = groups!.observe { [weak self] (changes: RealmCollectionChange) in
+            guard let tableView = self?.tableView else { return }
+            switch changes {
+            case .initial:
+                tableView.reloadData()
+            case .update(_, let deletions, let insertions, let modifications):
+                tableView.beginUpdates()
+                tableView.insertRows(at: insertions.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                tableView.deleteRows(at: deletions.map({ IndexPath(row: $0, section: 0)}),
+                                     with: .automatic)
+                tableView.reloadRows(at: modifications.map({ IndexPath(row: $0, section: 0) }),
+                                     with: .automatic)
+                tableView.endUpdates()
+            case .error(let error):
+                fatalError("\(error)")
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //getGroups(completion: self.loadGroupsData)
         getGroups()
-        
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5), execute: {
-            
-            self.tableView.reloadData()
-        })
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        pairTableAndRealm()
     }
     
-    func getGroups() {
-        let token = session.token
-        let apiVersion = "5.124"
-        
-        AF.request("https://api.vk.com/method/groups.getCatalog?access_token=\(token)&category_id=0&v=\(apiVersion)").responseData(completionHandler: { (response) in
-            switch response.result {
-            case .failure(let error):
-                print(error)
-            case .success(let data):
-                do{
-                    let groups = try JSONDecoder().decode(GroupListResponse.self, from: data)
-                    let groupsList = groups.response.items
-                    self.groups = groupsList!
-                    
-                    print(groupsList![0])
-                } catch { print(error) }
-            }
-        })
-        
+    //    func getGroups(completion: @escaping () -> Void) {
+    //        let token = session.token
+    //        let apiVersion = "5.124"
+    //
+    //        AF.request("https://api.vk.com/method/groups.getCatalog?access_token=\(token)&category_id=0&v=\(apiVersion)").responseData(completionHandler: { (response) in
+    //            switch response.result {
+    //            case .failure(let error):
+    //                print(error)
+    //            case .success(let data):
+    //                do{
+    //                    let groups = try JSONDecoder().decode(GroupListResponse.self, from: data)
+    //                    let groupsList = groups.response.items
+    //
+    //                    self.saveGroupsData(groups: groupsList!)
+    //                    DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+    //                        completion()
+    //                    })
+    //                } catch { print(error) }
+    //            }
+    //        })
+    //
+    //    }
+    
+    func saveGroupsData(groups: [Group]) {
+        try? realm.write {
+            realm.add(groups, update: .modified)
+        }
+    }
+    
+    func loadGroupsDataFromRealm() {
+        self.groups = realm.objects(Group.self)
+        self.tableView.reloadData()
     }
     
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if groups.count != 0 {
-            return groups.count
-        }
-        
-        return 0
+        return groups!.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as! GroupTableViewCell
         
         // Configure the cell...
-        let url = URL(string: groups[indexPath.row].photo!)
-        let data = try? Data(contentsOf: url!)
-        
-        cell.groupImage.image = UIImage(data: data!)
-        cell.groupNameLabel.text = groups[indexPath.row].name
+        if !realm.isEmpty {
+            let url = URL(string: groups![indexPath.row].photo!)
+            let data = try? Data(contentsOf: url!)
+            
+            cell.groupImage.image = UIImage(data: data!)
+            cell.groupNameLabel.text = groups![indexPath.row].name
+        } else {
+            let url = URL(string: groupsList[indexPath.row].photo!)
+            let data = try? Data(contentsOf: url!)
+            
+            cell.groupImage.image = UIImage(data: data!)
+            cell.groupNameLabel.text = groupsList[indexPath.row].name
+        }
         
         return cell
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        let session = Session.instance
-//        guard let url = URL(string: "https://api.vk.com/method/groups.search?access_token=\(session.token)&q=\(searchText)&v=5.124") else { return }
-//
-//        URLSession.shared.dataTask(with: url) { (data, response, error) in
-//            if let response = response {
-//                print(response)
-//            }
-//
-//            guard let data = data else { return }
-//            print(data)
-//
-//            do {
-//                let json = try JSONSerialization.jsonObject(with: data, options: [])
-//                print(json)
-//            } catch {
-//                print(error)
-//            }
-//        }.resume()
     }
 }
